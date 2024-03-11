@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "RoomNodeGraph",
     menuName = "NodeGraph/RoomNodeGraph")]
-public class RoomNodeGraphSO : ScriptableObject
-{
+public class RoomNodeGraphSO : ScriptableObject {
     [HideInInspector] public RoomNodeTypeListSO roomNodeTypeList;
 
     public List<RoomNodeSO> roomNodeList = new List<RoomNodeSO>();
@@ -23,6 +23,9 @@ public class RoomNodeGraphSO : ScriptableObject
             roomNodeDictionary = new Dictionary<string, RoomNodeSO>();
         }
 
+        roomNodeTypeList =
+            GameResources.Instance.roomNodeTypeList;
+
         LoadRoomNodeDictionary();
     }
 
@@ -31,6 +34,22 @@ public class RoomNodeGraphSO : ScriptableObject
         foreach (var roomNode in roomNodeList) {
             roomNodeDictionary.Add(roomNode.id, roomNode);
         }
+    }
+
+    public void GenerateEntrance() {
+        RoomNodeSO entranceRoomNode = ScriptableObject.CreateInstance<RoomNodeSO>();
+        entranceRoomNode.roomNodeType = roomNodeTypeList.GetRoomNodeTypeFromName(
+            "Entrance");
+        entranceRoomNode.id = Guid.NewGuid().ToString();
+        entranceRoomNode.rect = new Rect(0, 0, 160, 75);
+        roomNodeList.Add(entranceRoomNode);
+        roomNodeDictionary.Add(entranceRoomNode.id, entranceRoomNode);
+        //set object's name for save
+        entranceRoomNode.name = "Entrance";
+        AssetDatabase.AddObjectToAsset(entranceRoomNode, this);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        OnValidate();
     }
 
     public RoomNodeSO GetRoomNodeFromID(string id) {
