@@ -10,8 +10,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Object = System.Object;
 
-public class RoomNodeGraphEditor : EditorWindow
-{
+public class RoomNodeGraphEditor : EditorWindow {
     private const float NodeWidth = 160f;
     private const float NodeHeight = 75f;
     private const int NodePadding = 27;
@@ -284,8 +283,7 @@ public class RoomNodeGraphEditor : EditorWindow
         }
     }
 
-    struct RoomNodeTypeMenuItem
-    {
+    struct RoomNodeTypeMenuItem {
         public Vector2 mousePosition;
         public RoomNodeTypeSO roomNodeType;
     }
@@ -313,7 +311,8 @@ public class RoomNodeGraphEditor : EditorWindow
             RoomNodeTypeMenuItem roomNodeTypeMenuItem =
                 (RoomNodeTypeMenuItem)userdata;
             RoomNodeSO roomNode = CreateRoomNode(
-                roomNodeTypeMenuItem.mousePosition,
+                roomNodeTypeMenuItem.mousePosition -
+                new Vector2(NodeWidth / 2, NodeHeight / 2),
                 roomNodeTypeMenuItem.roomNodeType);
 
             if (roomNode) {

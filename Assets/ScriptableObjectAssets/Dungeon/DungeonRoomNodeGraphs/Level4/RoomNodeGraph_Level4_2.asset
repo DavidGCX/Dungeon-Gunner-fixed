@@ -24,8 +24,8 @@ MonoBehaviour:
   - 1a68ea6f-1c17-432a-a31c-bea9eb4649b3
   rect:
     serializedVersion: 2
-    x: 438.5
-    y: 198.49994
+    x: 129.1666
+    y: 248.49976
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -52,35 +52,8 @@ MonoBehaviour:
   - d5ec299a-2781-4cf4-92d0-47b072bc73b8
   rect:
     serializedVersion: 2
-    x: 1304.2501
-    y: 308
-    width: 160
-    height: 75
-  isLeftClickDragging: 0
-  isSelected: 0
---- !u!114 &-6900665883597974700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee49e4442c983433bb1f8d594e8886f7, type: 3}
-  m_Name: RoomNode
-  m_EditorClassIdentifier: 
-  id: e7367c67-4a93-41f1-b339-fcdeec57064f
-  roomNodeType: {fileID: 11400000, guid: b85eaf3b575f04d55b4d88d58252472d, type: 2}
-  roomNodeTypeList: {fileID: 11400000, guid: 6c8901aca093d485cb96e9bb42fb43f5, type: 2}
-  roomNodeGraph: {fileID: 11400000}
-  parentNodes:
-  - 823f98a1-f278-4f9d-b859-4d73b742d9fb
-  childNodes: []
-  rect:
-    serializedVersion: 2
-    x: 621.0001
-    y: 400.50006
+    x: 1264.9167
+    y: 235.99988
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -106,12 +79,12 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 323.99994
-    y: -78.500046
+    x: -124.00012
+    y: 98.83318
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
 --- !u!114 &-6446417787660782821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +107,8 @@ MonoBehaviour:
   - 7c969793-2420-4beb-9fae-d285be7a318a
   rect:
     serializedVersion: 2
-    x: 239.5
-    y: 199.49994
+    x: -69.83331
+    y: 249.49976
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -161,8 +134,8 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 359.00012
-    y: 423.5
+    x: 49.666718
+    y: 473.49985
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -189,12 +162,12 @@ MonoBehaviour:
   - fd1538f5-70d8-4d81-9441-c7dd66908ba5
   rect:
     serializedVersion: 2
-    x: 1118.0001
-    y: 304.00003
+    x: 1023.33356
+    y: 359.33322
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 1
+  isSelected: 0
 --- !u!114 &-2338519523811444523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,8 +190,8 @@ MonoBehaviour:
   - 54ba4b84-9cf1-4f3c-9760-872bb6b8b338
   rect:
     serializedVersion: 2
-    x: 869
-    y: 102.99994
+    x: 559.6666
+    y: 152.99985
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -245,8 +218,8 @@ MonoBehaviour:
   - 9a0f2f1b-1b7e-4249-8d88-017ed190fd99
   rect:
     serializedVersion: 2
-    x: 881
-    y: 343.49994
+    x: 571.6666
+    y: 393.4999
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -278,8 +251,6 @@ MonoBehaviour:
   - {fileID: -1046562269617796749}
   - {fileID: 5364801643519559070}
   - {fileID: 5847129180320666478}
-  - {fileID: -6900665883597974700}
-  - {fileID: 7665505177369709864}
   - {fileID: 9175506290282182828}
   - {fileID: 2614650780596296899}
   - {fileID: -4878120443438261129}
@@ -292,8 +263,8 @@ MonoBehaviour:
   - {fileID: 3244706628613683415}
   roomNodeToDrawLineFrom: {fileID: 0}
   linePosition: {x: 0, y: 0}
-  selectionBoxStartPosition: {x: 1238.0001, y: 302.00003}
-  selectionBoxEndPosition: {x: 1247.0001, y: 305.50003}
+  selectionBoxStartPosition: {x: 571.3334, y: 382.66666}
+  selectionBoxEndPosition: {x: 717.3334, y: 552.00006}
   isDraggingSelectionBox: 0
 --- !u!114 &1006369512575623766
 MonoBehaviour:
@@ -316,11 +287,10 @@ MonoBehaviour:
   childNodes:
   - 36579848-123f-4cd1-b14d-50ae51f0e963
   - d2d458f1-c724-4280-9e69-28209a38dbb8
-  - 823f98a1-f278-4f9d-b859-4d73b742d9fb
   rect:
     serializedVersion: 2
-    x: 871.5
-    y: 215.49997
+    x: 562.1666
+    y: 265.4999
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -347,8 +317,8 @@ MonoBehaviour:
   - 0cdb0bae-33e3-4323-9016-9ccaa10b509d
   rect:
     serializedVersion: 2
-    x: 626.5
-    y: 211.49997
+    x: 317.16663
+    y: 261.4999
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -375,12 +345,12 @@ MonoBehaviour:
   - 73e85aec-afe3-40ce-aff5-a3361836d916
   rect:
     serializedVersion: 2
-    x: 658.5
-    y: -19.500046
+    x: 308.5
+    y: 25.833183
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
 --- !u!114 &3244706628613683415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,12 +373,12 @@ MonoBehaviour:
   - eb15fb50-8831-43dc-bab7-5cb4ad8f5514
   rect:
     serializedVersion: 2
-    x: 1464.2504
-    y: 185
+    x: 1024.9167
+    y: 75.66656
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 1
+  isSelected: 0
 --- !u!114 &3778369730798952240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,8 +400,8 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 887.5
-    y: 453.5
+    x: 578.1666
+    y: 503.49985
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -459,8 +429,8 @@ MonoBehaviour:
   - 8850fcf1-0ad6-4861-b8c1-0c407ff3a281
   rect:
     serializedVersion: 2
-    x: 625.5
-    y: 100.49994
+    x: 316.16663
+    y: 150.49985
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -489,8 +459,8 @@ MonoBehaviour:
   - 432139db-7a4f-4af0-804b-448f57288997
   rect:
     serializedVersion: 2
-    x: 1260.5001
-    y: 218.49997
+    x: 1001.16693
+    y: 226.49982
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -516,8 +486,8 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 1348.0001
-    y: 397.50006
+    x: 1447.3333
+    y: 242.16647
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -544,8 +514,8 @@ MonoBehaviour:
   - b02df94e-b4dd-43ef-b892-7da8a41c2951
   rect:
     serializedVersion: 2
-    x: 1066
-    y: 216.99997
+    x: 780.6664
+    y: 236.33319
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -572,8 +542,8 @@ MonoBehaviour:
   - 02ca387c-031e-4a1e-9317-ba2b9029c424
   rect:
     serializedVersion: 2
-    x: 398.75006
-    y: 310.99994
+    x: 89.41666
+    y: 360.99973
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -599,12 +569,12 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 1577.0002
-    y: 346.00003
+    x: 1033.6663
+    y: -42.00007
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 1
+  isSelected: 0
 --- !u!114 &6867166237060878497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,12 +597,12 @@ MonoBehaviour:
   - eba28660-7125-4c8f-85ea-18d0db15a8f1
   rect:
     serializedVersion: 2
-    x: 425.5
-    y: 67.99994
+    x: 117.49991
+    y: 93.33315
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
 --- !u!114 &7231520934709666547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,36 +624,8 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 1096.0001
-    y: 375.50006
-    width: 160
-    height: 75
-  isLeftClickDragging: 0
-  isSelected: 1
---- !u!114 &7665505177369709864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee49e4442c983433bb1f8d594e8886f7, type: 3}
-  m_Name: RoomNode
-  m_EditorClassIdentifier: 
-  id: 823f98a1-f278-4f9d-b859-4d73b742d9fb
-  roomNodeType: {fileID: 11400000, guid: 01dc75efa8f5e4d6693be7f109f1b01e, type: 2}
-  roomNodeTypeList: {fileID: 11400000, guid: 6c8901aca093d485cb96e9bb42fb43f5, type: 2}
-  roomNodeGraph: {fileID: 11400000}
-  parentNodes:
-  - 54ba4b84-9cf1-4f3c-9760-872bb6b8b338
-  childNodes:
-  - e7367c67-4a93-41f1-b339-fcdeec57064f
-  rect:
-    serializedVersion: 2
-    x: 692.25
-    y: 316.49994
+    x: 1038
+    y: 548.83325
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -709,8 +651,8 @@ MonoBehaviour:
   - e832f1a8-619b-4f06-901c-333b7a2e59ff
   rect:
     serializedVersion: 2
-    x: 46.5
-    y: 189.49994
+    x: -262.83344
+    y: 239.49982
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -736,9 +678,9 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 693.5001
-    y: -118.00003
+    x: 340.16675
+    y: -81.333435
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1

@@ -501,6 +501,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &663313337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 663313339}
+  - component: {fileID: 663313338}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &663313338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663313337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4273e3f2969f34549b08aa740bb84208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonLevelList:
+  - {fileID: 11400000, guid: 48e5021df193b1d49a451bd5e3c95a58, type: 2}
+  - {fileID: 11400000, guid: 367a749c2a5bff045bb11eb1af850bac, type: 2}
+  - {fileID: 11400000, guid: a8ee2a23985e12b43b0e99e4aecf31d0, type: 2}
+  - {fileID: 11400000, guid: 6b70018ea5615454cab617d377026d45, type: 2}
+  - {fileID: 11400000, guid: feb34197f253997489d9078e26fca1f6, type: 2}
+  - {fileID: 11400000, guid: 5b66c9fa8a3e5e94b9601bf74b416171, type: 2}
+  currentDungeonLevelListIndex: 0
+  gameState: 0
+--- !u!4 &663313339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663313337}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4880607, y: -1.9709345, z: -0.05466848}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1122957714
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,3 +776,4 @@ SceneRoots:
   - {fileID: 1122957715}
   - {fileID: 1899179459}
   - {fileID: 537127337}
+  - {fileID: 663313339}
