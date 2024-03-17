@@ -16,6 +16,12 @@ public static class HelperUtilities {
         IEnumerable enumerableObjectToCheck) {
         bool error = false;
         int count = 0;
+
+        if (enumerableObjectToCheck == null) {
+            Debug.LogError("Field " + fieldName + " is null in " + thisObject.name);
+            return true;
+        }
+
         foreach (var item in enumerableObjectToCheck) {
             if (item == null) {
                 Debug.LogError("Field " + fieldName + " has a null value at index " +

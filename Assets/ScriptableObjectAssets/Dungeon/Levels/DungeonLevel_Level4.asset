@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c78e7ee65268745bbc0e647774ebeb, type: 3}
+  m_Name: DungeonLevel_Level4
+  m_EditorClassIdentifier: 
+  levelName: Dark Magic
+  roomTemplateList:
+  - {fileID: 11400000, guid: 93d5a19f4b6aace49922793f3fb19975, type: 2}
+  - {fileID: 11400000, guid: f3e9b41bf268eac4ea960aa8e5af4804, type: 2}
+  - {fileID: 11400000, guid: ad6e0cc120e23c54b80d117e127372e1, type: 2}
+  - {fileID: 11400000, guid: 56752574f921b034eaa3d3e844ff1ad3, type: 2}
+  - {fileID: 11400000, guid: f4755a924f6e29844930cae6d7326eae, type: 2}
+  - {fileID: 11400000, guid: 7cc8b7445e8ed3e4ea17478076e19828, type: 2}
+  - {fileID: 11400000, guid: 75f657f003d20ca41a404ce258480556, type: 2}
+  - {fileID: 11400000, guid: 280684b62d7b40f42906e2da772c5afe, type: 2}
+  - {fileID: 11400000, guid: 906fd97f0f6852c44910d1255177abb9, type: 2}
+  - {fileID: 11400000, guid: 573b1fa2887f838478d2d5638ffc9f82, type: 2}
+  - {fileID: 11400000, guid: 7a58760313a72b84189318e4bef2c301, type: 2}
+  - {fileID: 11400000, guid: 51620dc8214bed842b1d2defc616039d, type: 2}
+  - {fileID: 11400000, guid: 2bafece5e9f1b6640aae23a14277e201, type: 2}
+  - {fileID: 11400000, guid: c98dffe00f9083e4c92a8c220c948709, type: 2}
+  - {fileID: 11400000, guid: 8f2e8c1257758b0489ad62ed09d9091f, type: 2}
+  roomNodeGraphList:
+  - {fileID: 11400000, guid: 94f2f36592e034ec9ad2a7f42fea18ab, type: 2}
+  - {fileID: 11400000, guid: 5f191e02c30f547278770332b971a160, type: 2}
