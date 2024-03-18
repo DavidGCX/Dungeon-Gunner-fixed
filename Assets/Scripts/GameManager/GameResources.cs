@@ -20,4 +20,7 @@ public class GameResources : MonoBehaviour {
     [Tooltip(
         "Should be populate with the sripable object that contains the list of all the node type for the game, it is used instead of enum")]
     public RoomNodeTypeListSO roomNodeTypeList;
+
+
+    public Material dimmedMaterial;
 }

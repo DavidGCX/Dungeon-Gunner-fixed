@@ -36,10 +36,28 @@ public class RoomNodeGraphSO : ScriptableObject {
         }
     }
 
+    public RoomNodeSO GetRoomNode(RoomNodeTypeSO roomNodeType) {
+        foreach (var roomNode in roomNodeList) {
+            if (roomNode.roomNodeType == roomNodeType) {
+                return roomNode;
+            }
+        }
+
+        return null;
+    }
+
+    public IEnumerable<RoomNodeSO> GetChildRoomNodes(RoomNodeSO parentNode) {
+        foreach (string childNodeID in parentNode.childNodes) {
+            yield return GetRoomNodeFromID(childNodeID);
+        }
+    }
+
     public void GenerateEntrance() {
-        RoomNodeSO entranceRoomNode = ScriptableObject.CreateInstance<RoomNodeSO>();
-        entranceRoomNode.roomNodeType = roomNodeTypeList.GetRoomNodeTypeFromName(
-            "Entrance");
+        RoomNodeSO entranceRoomNode =
+            ScriptableObject.CreateInstance<RoomNodeSO>();
+        entranceRoomNode.roomNodeType =
+            roomNodeTypeList.GetRoomNodeTypeFromName(
+                "Entrance");
         entranceRoomNode.id = Guid.NewGuid().ToString();
         entranceRoomNode.rect = new Rect(0, 0, 160, 75);
         roomNodeList.Add(entranceRoomNode);
