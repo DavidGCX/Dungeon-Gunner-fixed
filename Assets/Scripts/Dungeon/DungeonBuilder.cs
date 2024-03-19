@@ -60,10 +60,14 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
     private void InstantiateRoomGameObjects() {
         foreach (var keyValuePair in dungeonBuilderRoomDictionary) {
             Room room = keyValuePair.Value;
+            // we do minus here because the room position is relative to the template
+            // When Initialize is called, the room will have position in template
+            // space, so we need to minus the template lower bounds to get the correct position
+            // as (0, 0) since our doorway calculation also uses the room position excluding
+            // the template lower bounds
             Vector3 roomPosition = new Vector3(room.lowerBounds.x - room
                     .templateLowerBounds.x,
                 room.lowerBounds.y - room.templateLowerBounds.y, 0);
-
             GameObject roomGameObject = Instantiate(room.prefab, roomPosition,
                 Quaternion.identity, transform);
             InstantiatedRoom instantiatedRoom =
@@ -183,10 +187,12 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
             parentDoorway.isUnavailable = true;
             return false;
         }
+        // This gives the new position for the doorway of the parent room.
 
         Vector2Int parentDoorwayPosition = parentRoom.lowerBounds +
             parentDoorway.position - parentRoom
                 .templateLowerBounds;
+
         // Position offset, if this doorway is west, we want a (1, 0) offset to the east of parent doorway
         Vector2Int adjustment = Vector2Int.zero;
         switch (parentDoorway.orientation) {
@@ -207,8 +213,11 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
             default:
                 break;
         }
+        // First parentDoorwayPosition + adjustment gives the correct position for the doorway
+        // of the child
 
-        // This is because parentDoorway.position + adjustment = doorway.position - room.templateLowerBounds + room.lowerBounds
+        // Second, + room.templateLowerBounds -doorway.position
+        // gives the correct position for the lower bounds of the room
         room.lowerBounds = parentDoorwayPosition + adjustment + room
             .templateLowerBounds - doorway.position;
         room.upperBounds = room.lowerBounds + room.templateUpperBounds -
