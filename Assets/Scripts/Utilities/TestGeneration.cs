@@ -11,10 +11,7 @@ public class TestGeneration : MonoBehaviour {
     private void MyFunction() {
         RoomNodeGraphSO roomNodeGraphSO =
             ScriptableObject.CreateInstance<RoomNodeGraphSO>();
-        string path = "Assets/Resources/RoomNodeGraphSO.asset";
-        UnityEditor.AssetDatabase.CreateAsset(roomNodeGraphSO, path);
-        UnityEditor.AssetDatabase.SaveAssets();
-        UnityEditor.AssetDatabase.Refresh();
         roomNodeGraphSO.GenerateEntrance();
+        roomNodeGraphSO.GenerateDungeonGraphTest();
     }
 }

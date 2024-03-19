@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
+
 using UnityEditor;
-using UnityEditor.Rendering;
+
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 
 [CreateAssetMenu(fileName = "RoomNode", menuName = "NodeGraph/RoomNode")]
@@ -18,6 +17,14 @@ public class RoomNodeSO : ScriptableObject
     [HideInInspector] public List<string> parentNodes = new();
     [HideInInspector] public List<string> childNodes = new();
 
+    public void Initialize(RoomNodeGraphSO nodeGraph,
+        RoomNodeTypeSO roomNodeType) {
+        this.roomNodeType = roomNodeType;
+        this.roomNodeGraph = nodeGraph;
+        this.id = Guid.NewGuid().ToString();
+        this.name = "RoomNode";
+        roomNodeTypeList = GameResources.Instance.roomNodeTypeList;
+    }
     #region Editor Code
 
 #if UNITY_EDITOR
@@ -169,8 +176,6 @@ public class RoomNodeSO : ScriptableObject
                 roomNode.parentNodes.Count > 0) {
                 isConnectedBossNodeAlready = true;
             }
-
-            ;
         }
 
         if (roomNodeTypeTarget

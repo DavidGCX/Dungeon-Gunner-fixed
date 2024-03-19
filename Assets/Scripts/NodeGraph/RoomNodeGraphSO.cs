@@ -55,19 +55,14 @@ public class RoomNodeGraphSO : ScriptableObject {
     public void GenerateEntrance() {
         RoomNodeSO entranceRoomNode =
             ScriptableObject.CreateInstance<RoomNodeSO>();
-        entranceRoomNode.roomNodeType =
-            roomNodeTypeList.GetRoomNodeTypeFromName(
-                "Entrance");
-        entranceRoomNode.id = Guid.NewGuid().ToString();
-        entranceRoomNode.rect = new Rect(0, 0, 160, 75);
-        roomNodeList.Add(entranceRoomNode);
-        roomNodeDictionary.Add(entranceRoomNode.id, entranceRoomNode);
-        //set object's name for save
-        entranceRoomNode.name = "Entrance";
-        AssetDatabase.AddObjectToAsset(entranceRoomNode, this);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-        OnValidate();
+        entranceRoomNode.Initialize(
+            new Rect(new Vector2(0, 0), new Vector2(160, 75)),
+            this, roomNodeTypeList.GetRoomNodeTypeFromName("Entrance"));
+    }
+    public void GenerateDungeonGraphTest() {
+        Queue<RoomNodeSO> roomNodeQueue = new Queue<RoomNodeSO>();
+        roomNodeQueue.Enqueue(GetRoomNode(roomNodeTypeList.GetRoomNodeTypeFromName("Entrance")));
+        
     }
 
     public RoomNodeSO GetRoomNodeFromID(string id) {
@@ -111,4 +106,5 @@ public class RoomNodeGraphSO : ScriptableObject {
                    selectionBoxEndPosition.y);
     }
 #endif
+   
 }
