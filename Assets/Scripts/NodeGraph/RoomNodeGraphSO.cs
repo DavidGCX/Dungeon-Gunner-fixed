@@ -55,14 +55,25 @@ public class RoomNodeGraphSO : ScriptableObject {
     public void GenerateEntrance() {
         RoomNodeSO entranceRoomNode =
             ScriptableObject.CreateInstance<RoomNodeSO>();
-        entranceRoomNode.Initialize(
-            new Rect(new Vector2(0, 0), new Vector2(160, 75)),
-            this, roomNodeTypeList.GetRoomNodeTypeFromName("Entrance"));
+        entranceRoomNode.Initialize(this,
+            roomNodeTypeList.GetRoomNodeTypeFromName("Entrance"));
+        this.roomNodeList.Add(entranceRoomNode);
+        AssetDatabase.AddObjectToAsset(entranceRoomNode, this);
     }
+
     public void GenerateDungeonGraphTest() {
         Queue<RoomNodeSO> roomNodeQueue = new Queue<RoomNodeSO>();
-        roomNodeQueue.Enqueue(GetRoomNode(roomNodeTypeList.GetRoomNodeTypeFromName("Entrance")));
-        
+        roomNodeQueue.Enqueue(
+            GetRoomNode(roomNodeTypeList.GetRoomNodeTypeFromName("Entrance")));
+        for (int i = 0; i < 10; i++) {
+            // randomly select some node to add
+            RoomNodeSO newRoomNode =
+                ScriptableObject.CreateInstance<RoomNodeSO>();
+            newRoomNode.Initialize(this,
+                roomNodeTypeList.GetRandomRoomNodeType());
+            this.roomNodeList.Add(newRoomNode);
+            AssetDatabase.AddObjectToAsset(newRoomNode, this);
+        }
     }
 
     public RoomNodeSO GetRoomNodeFromID(string id) {
@@ -106,5 +117,4 @@ public class RoomNodeGraphSO : ScriptableObject {
                    selectionBoxEndPosition.y);
     }
 #endif
-   
 }

@@ -30,4 +30,8 @@ public class RoomNodeTypeListSO : ScriptableObject {
 #endif
 
     #endregion"
+
+    public RoomNodeTypeSO GetRandomRoomNodeType() {
+        return list[Random.Range(0, list.Count)];
+    }
 }

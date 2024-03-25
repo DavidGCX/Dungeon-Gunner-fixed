@@ -1,15 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEditor;
-
 using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "RoomNode", menuName = "NodeGraph/RoomNode")]
-public class RoomNodeSO : ScriptableObject
-{
+public class RoomNodeSO : ScriptableObject {
     [HideInInspector] public string id;
     public RoomNodeTypeSO roomNodeType;
     [HideInInspector] public RoomNodeTypeListSO roomNodeTypeList;
@@ -22,9 +19,56 @@ public class RoomNodeSO : ScriptableObject
         this.roomNodeType = roomNodeType;
         this.roomNodeGraph = nodeGraph;
         this.id = Guid.NewGuid().ToString();
-        this.name = "RoomNode";
+        this.name = "RoomNode_" + roomNodeType.roomNodeTypeName;
+        this.rect = new Rect(new Vector2(0, 0), new Vector2(160, 75));
         roomNodeTypeList = GameResources.Instance.roomNodeTypeList;
     }
+
+    public bool IsChildRoomValid(RoomNodeTypeSO roomNodeTypeTarget) {
+        bool isConnectedBossNodeAlready = false;
+        foreach (RoomNodeSO roomNode in roomNodeGraph.roomNodeList) {
+            if (roomNode.roomNodeType.isBossRoom &&
+                roomNode.parentNodes.Count > 0) {
+                isConnectedBossNodeAlready = true;
+            }
+        }
+
+        if (roomNodeTypeTarget
+                .isBossRoom &&
+            isConnectedBossNodeAlready) {
+            return false;
+        }
+
+        if (roomNodeTypeTarget.isNone) {
+            return false;
+        }
+
+        if (roomNodeTypeTarget
+            .isEntrance) {
+            return false;
+        }
+
+
+        if (roomNodeTypeTarget
+                .isCorridor ==
+            roomNodeType.isCorridor) {
+            return false;
+        }
+
+
+        if (roomNodeTypeTarget
+                .isCorridor &&
+            childNodes.Count >= Settings.MaxChildCorridors) {
+            return false;
+        }
+
+        if (childNodes.Count > 0 && !roomNodeTypeTarget.isCorridor) {
+            return false;
+        }
+
+        return true;
+    }
+
     #region Editor Code
 
 #if UNITY_EDITOR
@@ -169,50 +213,6 @@ public class RoomNodeSO : ScriptableObject
         return false;
     }
 
-    public bool IsChildRoomValid(RoomNodeTypeSO roomNodeTypeTarget) {
-        bool isConnectedBossNodeAlready = false;
-        foreach (RoomNodeSO roomNode in roomNodeGraph.roomNodeList) {
-            if (roomNode.roomNodeType.isBossRoom &&
-                roomNode.parentNodes.Count > 0) {
-                isConnectedBossNodeAlready = true;
-            }
-        }
-
-        if (roomNodeTypeTarget
-                .isBossRoom &&
-            isConnectedBossNodeAlready) {
-            return false;
-        }
-
-        if (roomNodeTypeTarget.isNone) {
-            return false;
-        }
-
-        if (roomNodeTypeTarget
-            .isEntrance) {
-            return false;
-        }
-
-
-        if (roomNodeTypeTarget
-                .isCorridor ==
-            roomNodeType.isCorridor) {
-            return false;
-        }
-
-
-        if (roomNodeTypeTarget
-                .isCorridor &&
-            childNodes.Count >= Settings.MaxChildCorridors) {
-            return false;
-        }
-
-        if (childNodes.Count > 0 && !roomNodeTypeTarget.isCorridor) {
-            return false;
-        }
-
-        return true;
-    }
 
     public bool IsChildRoomValid(string childNodeID) {
         if (roomNodeGraph.GetRoomNodeFromID(childNodeID) == null) {
