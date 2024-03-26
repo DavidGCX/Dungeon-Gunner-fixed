@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DungeonLevelRestriction",
     menuName = "NodeGraph/DungeonLevelRestriction")]
 public class DungeonLevelRestriction : ScriptableObject {
+    // TODO: change to list and enum to make it more flexible
     [Header("Small Room")] public int minSmallRoomCount = 0;
     public int maxSmallRoomCount = 0;
     [Header("Medium Room")] [Space(10)] public int minMediumRoomCount = 0;

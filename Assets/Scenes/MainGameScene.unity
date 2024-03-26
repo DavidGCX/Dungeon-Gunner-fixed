@@ -544,7 +544,7 @@ MonoBehaviour:
   currentDungeonLevelListIndex: 5
   gameState: 0
   GameSeed: 12345
-  RandomGeneratingNodeGraph: 0
+  RandomGeneratingNodeGraph: 1
 --- !u!4 &663313339
 Transform:
   m_ObjectHideFlags: 0
