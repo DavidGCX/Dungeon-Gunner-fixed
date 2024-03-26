@@ -24,6 +24,16 @@ public class RoomNodeSO : ScriptableObject {
         roomNodeTypeList = GameResources.Instance.roomNodeTypeList;
     }
 
+    public void ConnectChildNode(RoomNodeSO childNode) {
+        // Not safe, for random generation only
+        if (childNode == null) {
+            return;
+        }
+
+        childNode.parentNodes.Add(id);
+        childNodes.Add(childNode.id);
+    }
+
     public bool IsChildRoomValid(RoomNodeTypeSO roomNodeTypeTarget) {
         bool isConnectedBossNodeAlready = false;
         foreach (RoomNodeSO roomNode in roomNodeGraph.roomNodeList) {

@@ -18,4 +18,5 @@ public enum GameState {
     gamePaused,
     dungeonOverviewMap,
     restartGame,
+    gameStartedWithSeed,
 }

@@ -46,3 +46,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c28923029f5b0543a7b725376ceeb62, type: 2}
   - {fileID: 11400000, guid: 2b0702dbb4750a045bf88a8af26e5e4e, type: 2}
   - {fileID: 11400000, guid: 31b794f7dad1fb14fbc7be69e8d76ee3, type: 2}
+  dungeonLevelRestriction: {fileID: 11400000, guid: 11f4005682f064544839a94960582073, type: 2}
+  usingDungeonLevelRestriction: 1

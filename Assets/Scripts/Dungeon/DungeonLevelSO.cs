@@ -12,11 +12,18 @@ public class DungeonLevelSO : ScriptableObject {
     public List<RoomTemplateSO> roomTemplateList;
 
     public List<RoomNodeGraphSO> roomNodeGraphList;
+    public DungeonLevelRestriction dungeonLevelRestriction;
+    public bool usingDungeonLevelRestriction = false;
 
     #region validation
 
 #if UNITY_EDITOR
     private void OnValidate() {
+        if (dungeonLevelRestriction == null && usingDungeonLevelRestriction) {
+            Debug.LogError("DungeonLevelRestriction is null in " + name);
+            return;
+        }
+
         HelperUtilities.ValidateCheckEmptyString(this, nameof(levelName),
             levelName);
         if (HelperUtilities.ValidateCheckEnumerableValues(this,

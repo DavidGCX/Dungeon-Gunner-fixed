@@ -32,3 +32,5 @@ MonoBehaviour:
   roomNodeGraphList:
   - {fileID: 11400000, guid: 94f2f36592e034ec9ad2a7f42fea18ab, type: 2}
   - {fileID: 11400000, guid: 5f191e02c30f547278770332b971a160, type: 2}
+  dungeonLevelRestriction: {fileID: 11400000, guid: 3c29d08c6c72149f99195ed10a8f0ca1, type: 2}
+  usingDungeonLevelRestriction: 1

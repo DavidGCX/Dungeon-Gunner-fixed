@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Random = System.Random;
 
 [CreateAssetMenu(fileName = "RoomNodeGraph",
     menuName = "NodeGraph/RoomNodeGraph")]
@@ -29,7 +30,11 @@ public class RoomNodeGraphSO : ScriptableObject {
         LoadRoomNodeDictionary();
     }
 
-    private void LoadRoomNodeDictionary() {
+    public void LoadRoomNodeDictionary() {
+        if (roomNodeDictionary == null) {
+            roomNodeDictionary = new Dictionary<string, RoomNodeSO>();
+        }
+
         roomNodeDictionary.Clear();
         foreach (var roomNode in roomNodeList) {
             roomNodeDictionary.Add(roomNode.id, roomNode);
@@ -52,27 +57,120 @@ public class RoomNodeGraphSO : ScriptableObject {
         }
     }
 
-    public void GenerateEntrance() {
+    public void GenerateEntrance(bool saveToAsset = false) {
+        if (roomNodeList == null) {
+            roomNodeList = new List<RoomNodeSO>();
+        }
+
         RoomNodeSO entranceRoomNode =
             ScriptableObject.CreateInstance<RoomNodeSO>();
         entranceRoomNode.Initialize(this,
             roomNodeTypeList.GetRoomNodeTypeFromName("Entrance"));
         this.roomNodeList.Add(entranceRoomNode);
-        AssetDatabase.AddObjectToAsset(entranceRoomNode, this);
+#if UNITY_EDITOR
+        if (saveToAsset) {
+            AssetDatabase.AddObjectToAsset(entranceRoomNode, this);
+        }
+#endif
     }
 
-    public void GenerateDungeonGraphTest() {
+    public void
+        GenerateDungeonGraphTest(DungeonLevelRestriction dungeonLevelRestriction,
+            bool saveToAsset = false) {
         Queue<RoomNodeSO> roomNodeQueue = new Queue<RoomNodeSO>();
+        List<RoomNodeSO> totalRoomNodeListFromRestriction =
+            GetTotalRoomNodeListFromRestriction(dungeonLevelRestriction);
         roomNodeQueue.Enqueue(
             GetRoomNode(roomNodeTypeList.GetRoomNodeTypeFromName("Entrance")));
-        for (int i = 0; i < 10; i++) {
-            // randomly select some node to add
-            RoomNodeSO newRoomNode =
-                ScriptableObject.CreateInstance<RoomNodeSO>();
-            newRoomNode.Initialize(this,
-                roomNodeTypeList.GetRandomRoomNodeType());
-            this.roomNodeList.Add(newRoomNode);
-            AssetDatabase.AddObjectToAsset(newRoomNode, this);
+
+        while (roomNodeQueue.Count > 0 && totalRoomNodeListFromRestriction.Count > 0) {
+            RoomNodeSO currentNode = roomNodeQueue.Dequeue();
+            int possibleChild =
+                UnityEngine.Random.Range(0, Settings.MaxChildCorridors + 1);
+            if (roomNodeQueue.Count == 0 && totalRoomNodeListFromRestriction.Count > 0 &&
+                possibleChild == 0) {
+                possibleChild = 1;
+            }
+
+            for (int i = 0; i < possibleChild; i++) {
+                if (totalRoomNodeListFromRestriction.Count == 0) {
+                    break;
+                }
+
+                RoomNodeSO roomNode = totalRoomNodeListFromRestriction[0];
+                totalRoomNodeListFromRestriction.RemoveAt(0);
+                roomNodeQueue.Enqueue(roomNode);
+                CreateCorridorConnection(currentNode, roomNode, saveToAsset);
+                this.roomNodeList.Add(roomNode);
+#if UNITY_EDITOR
+                if (saveToAsset) {
+                    AssetDatabase.AddObjectToAsset(roomNode, this);
+                }
+#endif
+            }
+        }
+    }
+
+    private void CreateCorridorConnection(RoomNodeSO currentNode, RoomNodeSO roomNode,
+        bool saveToAsset = false) {
+        RoomNodeSO corridorNode = ScriptableObject.CreateInstance<RoomNodeSO>();
+        corridorNode.Initialize(this,
+            roomNodeTypeList.GetRoomNodeTypeFromName("Corridor"));
+        this.roomNodeList.Add(corridorNode);
+        currentNode.ConnectChildNode(corridorNode);
+        corridorNode.ConnectChildNode(roomNode);
+#if UNITY_EDITOR
+        if (saveToAsset) {
+            AssetDatabase.AddObjectToAsset(corridorNode, this);
+        }
+#endif
+    }
+
+    private List<RoomNodeSO> GetTotalRoomNodeListFromRestriction(
+        DungeonLevelRestriction dungeonLevelRestriction) {
+        List<RoomNodeSO> roomNodeList = new List<RoomNodeSO>();
+        roomNodeList.AddRange(GetRoomNodeListFromRestriction(
+            dungeonLevelRestriction.minSmallRoomCount,
+            dungeonLevelRestriction.maxSmallRoomCount,
+            roomNodeTypeList.GetRoomNodeTypeFromName("Small Room")));
+        roomNodeList.AddRange(GetRoomNodeListFromRestriction(
+            dungeonLevelRestriction.minMediumRoomCount,
+            dungeonLevelRestriction.maxMediumRoomCount,
+            roomNodeTypeList.GetRoomNodeTypeFromName("Medium Room")));
+        roomNodeList.AddRange(GetRoomNodeListFromRestriction(
+            dungeonLevelRestriction.minLargeRoomCount,
+            dungeonLevelRestriction.maxLargeRoomCount,
+            roomNodeTypeList.GetRoomNodeTypeFromName("Large Room")));
+        roomNodeList.AddRange(GetRoomNodeListFromRestriction(
+            dungeonLevelRestriction.minChestRoomCount,
+            dungeonLevelRestriction.maxChestRoomCount,
+            roomNodeTypeList.GetRoomNodeTypeFromName("Chest Room")));
+        ShuffleList(roomNodeList);
+        roomNodeList.AddRange(GetRoomNodeListFromRestriction(
+            dungeonLevelRestriction.minBossRoomCount,
+            dungeonLevelRestriction.maxBossRoomCount,
+            roomNodeTypeList.GetRoomNodeTypeFromName("Boss Room")));
+        return roomNodeList;
+    }
+
+    private void ShuffleList(List<RoomNodeSO> roomNodeSos) {
+        int n = roomNodeSos.Count;
+        while (n > 1) {
+            n--;
+            var k = UnityEngine.Random.Range(0, roomNodeSos.Count);
+            (roomNodeSos[k], roomNodeSos[n]) = (roomNodeSos[n], roomNodeSos[k]);
+        }
+    }
+
+    private IEnumerable<RoomNodeSO> GetRoomNodeListFromRestriction(
+        int minSmallRoomCount,
+        int maxSmallRoomCount, RoomNodeTypeSO getRoomNodeTypeFromName) {
+        for (int i = 0;
+             i < UnityEngine.Random.Range(minSmallRoomCount, maxSmallRoomCount);
+             i++) {
+            RoomNodeSO roomNode = ScriptableObject.CreateInstance<RoomNodeSO>();
+            roomNode.Initialize(this, getRoomNodeTypeFromName);
+            yield return roomNode;
         }
     }
 

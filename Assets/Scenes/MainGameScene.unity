@@ -310,9 +310,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.58055556
+    width: 0.5041667
+    height: 0.50416666
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -360,7 +360,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa0af67f08904cbfb34f3a4f166a8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dungeonLevelRestrictions: []
+  DungeonLevel: 0
   OutputTheMapGenerated: 0
+  SaveTheMapGenerated: 0
   DeleteTheMapGenerated: 0
 --- !u!114 &519420034
 MonoBehaviour:
@@ -538,8 +541,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6b70018ea5615454cab617d377026d45, type: 2}
   - {fileID: 11400000, guid: feb34197f253997489d9078e26fca1f6, type: 2}
   - {fileID: 11400000, guid: 5b66c9fa8a3e5e94b9601bf74b416171, type: 2}
-  currentDungeonLevelListIndex: 0
+  currentDungeonLevelListIndex: 5
   gameState: 0
+  GameSeed: 12345
+  RandomGeneratingNodeGraph: 0
 --- !u!4 &663313339
 Transform:
   m_ObjectHideFlags: 0
@@ -792,7 +797,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa0af67f08904cbfb34f3a4f166a8f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dungeonLevelRestrictions:
+  - {fileID: 11400000, guid: 11f4005682f064544839a94960582073, type: 2}
+  DungeonLevel: 1
   OutputTheMapGenerated: 0
+  SaveTheMapGenerated: 0
   DeleteTheMapGenerated: 0
 --- !u!4 &1688659833
 Transform:

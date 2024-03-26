@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 [DisallowMultipleComponent]
 public class GameManager : SingletonMonobehavior<GameManager> {
@@ -10,6 +12,11 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     [SerializeField] private int currentDungeonLevelListIndex = 0;
 
     public GameState gameState;
+
+    [Header("Testing only need to integrate to Game UI later")]
+    public int GameSeed = 12345678;
+
+    public bool RandomGeneratingNodeGraph = false;
 
     private void Start() {
         gameState = GameState.gameStarted;
@@ -20,12 +27,21 @@ public class GameManager : SingletonMonobehavior<GameManager> {
         if (Input.GetKeyDown(KeyCode.R)) {
             gameState = GameState.gameStarted;
         }
+
+        if (Input.GetKeyDown(KeyCode.T)) {
+            gameState = GameState.gameStartedWithSeed;
+        }
     }
 
 
     private void HandleGameState() {
         switch (gameState) {
             case GameState.gameStarted:
+                PlayDungeonLevel(currentDungeonLevelListIndex);
+                gameState = GameState.playingLevel;
+                break;
+            case GameState.gameStartedWithSeed:
+                UnityEngine.Random.InitState(GameManager.Instance.GameSeed);
                 PlayDungeonLevel(currentDungeonLevelListIndex);
                 gameState = GameState.playingLevel;
                 break;

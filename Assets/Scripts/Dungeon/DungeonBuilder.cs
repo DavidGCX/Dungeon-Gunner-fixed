@@ -27,17 +27,25 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
         roomNodeTypeList = GameResources.Instance.roomNodeTypeList;
     }
 
-    public bool GenerateDungeon(DungeonLevelSO currectDungeonLevel) {
-        roomTemplateList = currectDungeonLevel.roomTemplateList;
+    public bool GenerateDungeon(DungeonLevelSO currentDungeonLevel) {
+        roomTemplateList = currentDungeonLevel.roomTemplateList;
         LoadRoomTemplatesIntoDictionary();
         dungeonBuildSuccessful = false;
         int dungeonBuildAttempts = 0;
         while (!dungeonBuildSuccessful && dungeonBuildAttempts <
                Settings.MaxDungeonBuildAttempts) {
             dungeonBuildAttempts++;
+            RoomNodeGraphSO roomNodeGraph;
+            if (GameManager.Instance.RandomGeneratingNodeGraph &&
+                currentDungeonLevel.usingDungeonLevelRestriction) {
+                roomNodeGraph =
+                    GenerateRandomRoomNodeGraph(currentDungeonLevel
+                        .dungeonLevelRestriction);
+            } else {
+                roomNodeGraph = SelectRandomRoomNodeGraph(
+                    currentDungeonLevel.roomNodeGraphList);
+            }
 
-            RoomNodeGraphSO roomNodeGraph = SelectRandomRoomNodeGraph(
-                currectDungeonLevel.roomNodeGraphList);
             int dungeonRebuildAttemptsForNodeGraph = 0;
             dungeonBuildSuccessful = false;
             while (!dungeonBuildSuccessful &&
@@ -55,6 +63,19 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
         }
 
         return dungeonBuildSuccessful;
+    }
+
+    private RoomNodeGraphSO GenerateRandomRoomNodeGraph(
+        DungeonLevelRestriction dungeonLevelRestriction) {
+        RoomNodeGraphSO roomNodeGraph =
+            ScriptableObject.CreateInstance<RoomNodeGraphSO>();
+        roomNodeGraph.GenerateEntrance(saveToAsset: false);
+        roomNodeGraph.GenerateDungeonGraphTest(
+            dungeonLevelRestriction,
+            saveToAsset:
+            false);
+        roomNodeGraph.LoadRoomNodeDictionary();
+        return roomNodeGraph;
     }
 
     private void InstantiateRoomGameObjects() {

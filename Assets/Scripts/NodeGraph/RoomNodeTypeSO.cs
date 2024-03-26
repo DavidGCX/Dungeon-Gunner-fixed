@@ -4,8 +4,13 @@ using UnityEngine;
 public class RoomNodeTypeSO : ScriptableObject {
     public string roomNodeTypeName;
     public bool displayInNodeGraphEditor = true;
+
     public bool isCorridor;
+
+    // Only used for room node template.
     public bool isCorridorNS;
+
+    // Only used for room node template.
     public bool isCorridorEW;
     public bool isEntrance;
     public bool isBossRoom;
