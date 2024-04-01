@@ -129,6 +129,7 @@ public class RoomNodeGraphSO : ScriptableObject {
     private List<RoomNodeSO> GetTotalRoomNodeListFromRestriction(
         DungeonLevelRestriction dungeonLevelRestriction) {
         List<RoomNodeSO> roomNodeList = new List<RoomNodeSO>();
+        // TODO: Need to Change to fit enum to make the code more flexible
         roomNodeList.AddRange(GetRoomNodeListFromRestriction(
             dungeonLevelRestriction.minSmallRoomCount,
             dungeonLevelRestriction.maxSmallRoomCount,

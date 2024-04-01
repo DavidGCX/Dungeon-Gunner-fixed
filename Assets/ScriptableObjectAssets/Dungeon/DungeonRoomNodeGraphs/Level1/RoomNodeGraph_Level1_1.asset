@@ -22,8 +22,8 @@ MonoBehaviour:
   - 82a0cdba-ac9b-49b7-85b7-8aa3870e3b63
   rect:
     serializedVersion: 2
-    x: 906
-    y: 453
+    x: 277
+    y: 461
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -51,8 +51,8 @@ MonoBehaviour:
   - d65364a0-6330-41ef-8017-fc035eb8b639
   rect:
     serializedVersion: 2
-    x: 513
-    y: 441
+    x: 558
+    y: 363
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -78,12 +78,12 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 574
-    y: 219
+    x: 527
+    y: 189
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
 --- !u!114 &-6446417787660782821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,12 +106,12 @@ MonoBehaviour:
   - 7c969793-2420-4beb-9fae-d285be7a318a
   rect:
     serializedVersion: 2
-    x: 314
-    y: 442
+    x: 284
+    y: 374
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
 --- !u!114 &-5580371464433872840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,12 +134,12 @@ MonoBehaviour:
   - 1aa06164-9832-4c1d-b6ef-89704aea3a0a
   rect:
     serializedVersion: 2
-    x: 943.5
-    y: 572
+    x: 274.5
+    y: 582
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
 --- !u!114 &-4965673890465145868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,12 +161,12 @@ MonoBehaviour:
   childNodes: []
   rect:
     serializedVersion: 2
-    x: 946
-    y: 723
+    x: 561
+    y: 585
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,8 +192,8 @@ MonoBehaviour:
   - {fileID: 6867166237060878497}
   roomNodeToDrawLineFrom: {fileID: 0}
   linePosition: {x: 0, y: 0}
-  selectionBoxStartPosition: {x: 756, y: 757}
-  selectionBoxEndPosition: {x: 746, y: 773}
+  selectionBoxStartPosition: {x: 434, y: 227}
+  selectionBoxEndPosition: {x: 1205, y: 803}
   isDraggingSelectionBox: 0
 --- !u!114 &1661502415081095834
 MonoBehaviour:
@@ -217,12 +217,12 @@ MonoBehaviour:
   - 37ec175d-5658-427c-b0e5-adaf6c2f7b5e
   rect:
     serializedVersion: 2
-    x: 701
-    y: 454
+    x: 559
+    y: 469
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
 --- !u!114 &6867166237060878497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,8 +245,8 @@ MonoBehaviour:
   - eba28660-7125-4c8f-85ea-18d0db15a8f1
   rect:
     serializedVersion: 2
-    x: 535.5
-    y: 334
+    x: 540.5
+    y: 272
     width: 160
     height: 75
   isLeftClickDragging: 0
@@ -272,9 +272,9 @@ MonoBehaviour:
   - e832f1a8-619b-4f06-901c-333b7a2e59ff
   rect:
     serializedVersion: 2
-    x: 121
-    y: 432
+    x: 300
+    y: 202
     width: 160
     height: 75
   isLeftClickDragging: 0
-  isSelected: 0
+  isSelected: 1
