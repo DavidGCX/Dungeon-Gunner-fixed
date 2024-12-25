@@ -362,6 +362,8 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
             // This is the entrance room
             room.parentRoomID = "";
             room.isPreviouslyVisited = true;
+            // Set the current room to the entrance room
+            GameManager.Instance.SetCurrentRoom(room);
         } else {
             room.parentRoomID = currentRoomNode.parentNodes[0];
         }

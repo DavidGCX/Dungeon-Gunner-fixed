@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -10,13 +11,28 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     // Start is called before the first frame update
     [SerializeField] private List<DungeonLevelSO> dungeonLevelList;
     [SerializeField] private int currentDungeonLevelListIndex = 0;
-
+    private Room currentRoom;
+    private Room previousRoom;
+    private PlayerDetailsSO playerDetails;
+    public Player player;
     public GameState gameState;
 
     [Header("Testing only need to integrate to Game UI later")]
     public int GameSeed = 12345678;
 
     public bool RandomGeneratingNodeGraph = false;
+
+    protected override void Awake() {
+        base.Awake();
+        playerDetails = GameResources.Instance.currentPlayer.playerDetails;
+        InstantiatePlayer();
+    }
+
+    private void InstantiatePlayer() {
+        GameObject playerGameObject = Instantiate(playerDetails.playerPrefab);
+        player = playerGameObject.GetComponent<Player>();
+        player.Initialized(playerDetails);
+    }
 
     private void Start() {
         gameState = GameState.gameStarted;
@@ -48,12 +64,33 @@ public class GameManager : SingletonMonobehavior<GameManager> {
         }
     }
 
+    public void SetCurrentRoom(Room room) {
+        previousRoom = currentRoom;
+        currentRoom = room;
+    }
+
+    public Player GetPlayer() {
+        return player;
+    }
+
     private void PlayDungeonLevel(int dungeonLevelListIndex) {
         bool dungeonBuiltSuccessfully = DungeonBuilder.Instance.GenerateDungeon(
             dungeonLevelList[dungeonLevelListIndex]);
         if (!dungeonBuiltSuccessfully) {
             Debug.LogError("Dungeon not built successfully");
         }
+
+        // Set player position to the center of the current room
+        var position = player.gameObject.transform.position;
+        position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f,
+            (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2f, 0);
+        position =
+            HelperUtilities.GetSpawnPointNearestToPlayer(position);
+        player.gameObject.transform.position = position;
+    }
+
+    public Room GetCurrentRoom() {
+        return currentRoom;
     }
 #if UNITY_EDITOR
     private void OnValidate() {

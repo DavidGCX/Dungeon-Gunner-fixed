@@ -5,12 +5,16 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerDetails_", menuName = "Scriptable Objects/Player/Player Details")]
 public class PlayerDetailsSO : ScriptableObject {
-    public string playerCharacterName;
+    [Header("Base Information")] public string playerCharacterName;
     public GameObject playerPrefab;
     public RuntimeAnimatorController runtimeAnimatorController;
-    public int playerHealthAmount;
+
+    [Space(10)] [Header("Player Health")] public int playerHealthAmount;
+
+    [Tooltip("This icon is used in the minimap to represent the player")] [Space(10)] [Header("Player Minimap Icon")]
     public Sprite playerMinimapIcon;
-    public Sprite playerHandSprite;
+
+    [Space(10)] public Sprite playerHandSprite;
 
     #region validation
 
