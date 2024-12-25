@@ -21,6 +21,7 @@ public class GameResources : MonoBehaviour {
         "Should be populate with the sripable object that contains the list of all the node type for the game, it is used instead of enum")]
     public RoomNodeTypeListSO roomNodeTypeList;
 
+    [Space(10)] [Header("PLAYER")] public CurrentPlayerSO currentPlayer;
 
     public Material dimmedMaterial;
 }
