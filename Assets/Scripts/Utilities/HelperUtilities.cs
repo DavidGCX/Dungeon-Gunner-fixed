@@ -2,6 +2,65 @@ using System.Collections;
 using UnityEngine;
 
 public static class HelperUtilities {
+    public static Camera mainCamera;
+
+    public static Vector3 GetMouseWorldPosition() {
+        if (!mainCamera) {
+            mainCamera = Camera.main;
+        }
+
+        if (!mainCamera) {
+            Debug.LogError("Main camera not found in the scene");
+            return Vector3.zero;
+        }
+
+        Vector3 mouseScreenPosition = Input.mousePosition;
+        mouseScreenPosition.x = Mathf.Clamp(mouseScreenPosition.x, 0, Screen.width);
+        mouseScreenPosition.y = Mathf.Clamp(mouseScreenPosition.y, 0, Screen.height);
+
+        Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(mouseScreenPosition);
+        mouseWorldPosition.z = 0;
+        return mouseWorldPosition;
+    }
+
+    public static float GetAngleFromVector(Vector3 vector) {
+        vector = vector.normalized;
+        return Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+    }
+
+    public static AimDirection GetAimDirection(float angle) {
+        if (angle is >= 22f and <= 67f) {
+            return AimDirection.UpRight;
+        } else if (angle is > 67f and < 112f) {
+            return AimDirection.Up;
+        } else if (angle is >= 112f and <= 158f) {
+            return AimDirection.UpLeft;
+        } else if (angle is (> 158f and <= 180) or (>= -180f and < -135f)) {
+            return AimDirection.Left;
+        } else if (angle is >= -135f and <= -45f) {
+            return AimDirection.Down;
+        } else {
+            return AimDirection.Right;
+        }
+    }
+
+    public static AimDirection GetAimDirection(Vector3 direction) {
+        float angle = GetAngleFromVector(direction);
+        if (angle is >= 22f and <= 67f) {
+            return AimDirection.UpRight;
+        } else if (angle is > 67f and < 112f) {
+            return AimDirection.Up;
+        } else if (angle is >= 112f and <= 158f) {
+            return AimDirection.UpLeft;
+        } else if (angle is (> 158f and <= 180) or (>= -180f and < -135f)) {
+            return AimDirection.Left;
+        } else if (angle is >= -135f and <= -45f) {
+            return AimDirection.Down;
+        } else {
+            return AimDirection.Right;
+        }
+    }
+
     public static bool ValidateCheckEmptyString(Object thisObject, string fieldName,
         string fieldValue) {
         if (string.IsNullOrEmpty(fieldValue)) {
