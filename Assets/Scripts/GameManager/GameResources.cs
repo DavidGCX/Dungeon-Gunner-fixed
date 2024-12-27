@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,4 +25,22 @@ public class GameResources : MonoBehaviour {
     [Space(10)] [Header("PLAYER")] public CurrentPlayerSO currentPlayer;
 
     public Material dimmedMaterial;
+
+    public Material litMaterial;
+
+    public Shader variableLitShader;
+
+    #region validation
+
+#if UNITY_EDITOR
+    private void OnValidate() {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(roomNodeTypeList), roomNodeTypeList);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(currentPlayer), currentPlayer);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(dimmedMaterial), dimmedMaterial);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(litMaterial), litMaterial);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(variableLitShader), variableLitShader);
+    }
+#endif
+
+    #endregion
 }

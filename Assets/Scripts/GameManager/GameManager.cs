@@ -80,6 +80,8 @@ public class GameManager : SingletonMonobehavior<GameManager> {
             Debug.LogError("Dungeon not built successfully");
         }
 
+        StaticEventHandler.CallRoomChangedEvent(currentRoom);
+
         // Set player position to the center of the current room
         var position = player.gameObject.transform.position;
         position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f,

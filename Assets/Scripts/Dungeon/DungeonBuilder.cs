@@ -15,12 +15,21 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
 
     private List<RoomTemplateSO> roomTemplateList = null;
     private RoomNodeTypeListSO roomNodeTypeList;
+    public RoomNodeGraphSO roomNodeGraphCache;
     private bool dungeonBuildSuccessful;
+
+    private void OnEnable() {
+        GameResources.Instance.dimmedMaterial.SetFloat("Alpha_Slider", 0f);
+    }
+
+    private void OnDisable() {
+        GameResources.Instance.dimmedMaterial.SetFloat("Alpha_Slider", 1f);
+    }
 
     protected override void Awake() {
         base.Awake();
         LoadRoomNodeTypeList();
-        GameResources.Instance.dimmedMaterial.SetFloat("Alpha_Slider", 1f);
+        //GameResources.Instance.dimmedMaterial.SetFloat("Alpha_Slider", 1f);
     }
 
     private void LoadRoomNodeTypeList() {
@@ -58,6 +67,7 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
             }
 
             if (dungeonBuildSuccessful) {
+                roomNodeGraphCache = roomNodeGraph;
                 InstantiateRoomGameObjects();
             }
         }
@@ -110,8 +120,8 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
     }
 
     public Room GetRoomByRoomID(string roomId) {
-        if (dungeonBuilderRoomDictionary.ContainsKey(roomId)) {
-            return dungeonBuilderRoomDictionary[roomId];
+        if (dungeonBuilderRoomDictionary.TryGetValue(roomId, out var byRoomID)) {
+            return byRoomID;
         } else {
             Debug.LogError("Room with id " + roomId +
                            " not found in the dictionary");
@@ -250,6 +260,8 @@ public class DungeonBuilder : SingletonMonobehavior<DungeonBuilder> {
 
             doorway.isConnected = true;
             doorway.isUnavailable = true;
+            doorway.connectedRoomID = parentRoom.id;
+            parentDoorway.connectedRoomID = room.id;
             return true;
         } else {
             parentDoorway.isUnavailable = true;

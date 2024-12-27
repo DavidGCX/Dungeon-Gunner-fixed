@@ -12,7 +12,15 @@ public static class Settings {
 
     #region Room settings
 
+    public const float fadeInTime = 0.5f;
     public const int MaxChildCorridors = 3;
+
+    #endregion
+
+    #region Units
+
+    public const float pixelsPerUnit = 16f;
+    public const float tileSizePixels = 16f;
 
     #endregion
 
@@ -31,5 +39,13 @@ public static class Settings {
     public static int rollDown = Animator.StringToHash("rollDown");
     public static int rollLeft = Animator.StringToHash("rollLeft");
     public static int rollRight = Animator.StringToHash("rollRight");
+
+    // Door
+    public static int open = Animator.StringToHash("open");
+
+    // Object tags
+    public const string playerTag = "Player";
+    public const string playerWeapon = "playerWeapon";
+
     #endregion
 }
