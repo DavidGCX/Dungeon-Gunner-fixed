@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5368478437804977261, guid: aeeb3eb4cda5e0a4daa0af2e3d215b7f, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c302b22c5691524c8aa1f83397e158b, type: 2}
     - target: {fileID: 7181064113732702418, guid: aeeb3eb4cda5e0a4daa0af2e3d215b7f, type: 3}
       propertyPath: m_Name
       value: TheThief

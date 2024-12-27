@@ -15,9 +15,9 @@ public static class HelperUtilities {
         }
 
         Vector3 mouseScreenPosition = Input.mousePosition;
+        // clamp to screen size only
         mouseScreenPosition.x = Mathf.Clamp(mouseScreenPosition.x, 0, Screen.width);
         mouseScreenPosition.y = Mathf.Clamp(mouseScreenPosition.y, 0, Screen.height);
-
         Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(mouseScreenPosition);
         mouseWorldPosition.z = 0;
         return mouseWorldPosition;
@@ -122,6 +122,44 @@ public static class HelperUtilities {
                 Debug.Log(fieldName + " must contain a positive value or zero in object " + thisObject.name.ToString());
                 error = true;
             }
+        }
+
+        return error;
+    }
+
+    public static bool ValidateCheckPositiveValue(Object thisObject, string fieldName, float valueToCheck,
+        bool isZeroAllowed) {
+        bool error = false;
+        if (isZeroAllowed) {
+            if (valueToCheck < 0f) {
+                Debug.Log(fieldName + " must contain a positive value or zero in object " + thisObject.name.ToString());
+                error = true;
+            }
+        } else {
+            if (valueToCheck <= 0f) {
+                Debug.Log(fieldName + " must contain a positive value or zero in object " + thisObject.name.ToString());
+                error = true;
+            }
+        }
+
+        return error;
+    }
+
+    public static bool ValidateCheckPositiveRange(Object thisObject, string fieldNameMinimum, float
+        valueToCheckMinimum, string fieldNameMaximum, float valueToCheckMaximum, bool isZeroAllowed) {
+        bool error = false;
+        if (valueToCheckMinimum > valueToCheckMaximum) {
+            Debug.Log(fieldNameMinimum + " must be less than " + fieldNameMaximum + " in object " +
+                      thisObject.name.ToString());
+            error = true;
+        }
+
+        if (ValidateCheckPositiveValue(thisObject, fieldNameMinimum, valueToCheckMinimum, isZeroAllowed)) {
+            error = true;
+        }
+
+        if (ValidateCheckPositiveValue(thisObject, fieldNameMaximum, valueToCheckMaximum, isZeroAllowed)) {
+            error = true;
         }
 
         return error;

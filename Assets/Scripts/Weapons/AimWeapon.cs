@@ -22,7 +22,7 @@ public class AimWeapon : MonoBehaviour {
         aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
     }
 
-    private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs) {
+    private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimEvent, AimWeaponEventArgs aimWeaponEventArgs) {
         Aim(aimWeaponEventArgs.aimDirection, aimWeaponEventArgs.weaponAimAngle);
     }
 

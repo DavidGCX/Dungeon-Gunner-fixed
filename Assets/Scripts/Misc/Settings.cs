@@ -27,6 +27,9 @@ public static class Settings {
     public static int aimRight = Animator.StringToHash("aimRight");
     public static int isIdle = Animator.StringToHash("isIdle");
     public static int isMoving = Animator.StringToHash("isMoving");
-
+    public static int rollUp = Animator.StringToHash("rollUp");
+    public static int rollDown = Animator.StringToHash("rollDown");
+    public static int rollLeft = Animator.StringToHash("rollLeft");
+    public static int rollRight = Animator.StringToHash("rollRight");
     #endregion
 }
