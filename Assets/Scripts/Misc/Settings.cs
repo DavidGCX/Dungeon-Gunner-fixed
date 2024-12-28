@@ -40,6 +40,7 @@ public static class Settings {
     public static int rollLeft = Animator.StringToHash("rollLeft");
     public static int rollRight = Animator.StringToHash("rollRight");
 
+    public static float baseSpeedForPlayerAnimations = 8f;
     // Door
     public static int open = Animator.StringToHash("open");
 

@@ -34,6 +34,18 @@ public class GameManager : SingletonMonobehavior<GameManager> {
         player.Initialized(playerDetails);
     }
 
+    private void OnEnable() {
+        StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
+    }
+    
+    private void OnDisable() {
+        StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
+    }
+
+    private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs obj) {
+        SetCurrentRoom(obj.room);
+    }
+
     private void Start() {
         gameState = GameState.gameStarted;
     }
