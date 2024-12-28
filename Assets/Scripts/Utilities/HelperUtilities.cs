@@ -44,6 +44,9 @@ public static class HelperUtilities {
         }
     }
 
+    public static Vector3 GetDirectionVectorFromAngle(float angle) {
+        return new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0);
+    }
     public static AimDirection GetAimDirection(Vector3 direction) {
         float angle = GetAngleFromVector(direction);
         if (angle is >= 22f and <= 67f) {
