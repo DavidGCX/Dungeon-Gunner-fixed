@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(ActiveWeapon))]
 [RequireComponent(typeof(FireWeaponEvent))]
+[RequireComponent(typeof(ReloadWeaponEvent))]
 [RequireComponent(typeof(WeaponFiredEvent))]
 [DisallowMultipleComponent]
 public class FireWeapon : MonoBehaviour {
@@ -15,11 +16,13 @@ public class FireWeapon : MonoBehaviour {
     private ActiveWeapon activeWeapon;
     private FireWeaponEvent fireWeaponEvent;
     private WeaponFiredEvent weaponFiredEvent;
+    private ReloadWeaponEvent reloadWeaponEvent;
 
     private void Awake() {
         activeWeapon = GetComponent<ActiveWeapon>();
         fireWeaponEvent = GetComponent<FireWeaponEvent>();
         weaponFiredEvent = GetComponent<WeaponFiredEvent>();
+        reloadWeaponEvent = GetComponent<ReloadWeaponEvent>();
     }
 
     private void OnEnable() {
@@ -90,6 +93,7 @@ public class FireWeapon : MonoBehaviour {
 
         if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity && activeWeapon.GetCurrentWeapon()
                 .weaponClipRemainingAmmo <= 0) {
+            reloadWeaponEvent.CallReloadWeaponEvent(activeWeapon.GetCurrentWeapon(), 0);
             return false;
         }
 
