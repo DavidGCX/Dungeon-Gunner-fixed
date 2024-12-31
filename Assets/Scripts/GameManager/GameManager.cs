@@ -37,7 +37,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     private void OnEnable() {
         StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
     }
-    
+
     private void OnDisable() {
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
     }
@@ -50,15 +50,27 @@ public class GameManager : SingletonMonobehavior<GameManager> {
         gameState = GameState.gameStarted;
     }
 
+    [ButtonInvoke(nameof(RestartGameDebug))]
+    public bool RestartGame;
+
+    private void RestartGameDebug() {
+        gameState = GameState.gameStarted;
+    }
+
+    [ButtonInvoke(nameof(RestartGameWithSeedDebug))]
+    public bool RestartGameWithSeed;
+
+    private void RestartGameWithSeedDebug() {
+        gameState = GameState.gameStartedWithSeed;
+    }
+
+    public void TriggerGhostMode(bool isGhostMode) {
+        player.SetImmortal(isGhostMode);
+        player.GetComponent<PlayerControl>().SetMoveSpeed(50f);
+    }
+
     private void Update() {
         HandleGameState();
-        if (Input.GetKeyDown(KeyCode.R)) {
-            gameState = GameState.gameStarted;
-        }
-
-        if (Input.GetKeyDown(KeyCode.T)) {
-            gameState = GameState.gameStartedWithSeed;
-        }
     }
 
 

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1464538535425731453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.125, y: 0, z: 0}
+  m_LocalPosition: {x: -0.15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -172,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 3534497472144750710}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.688, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -324,6 +324,8 @@ GameObject:
   - component: {fileID: 1647770912283781000}
   - component: {fileID: 2744239628940005636}
   - component: {fileID: 8267885661497878175}
+  - component: {fileID: 4016021218047394898}
+  - component: {fileID: 5664964270380973857}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -596,6 +598,7 @@ MonoBehaviour:
   aimWeaponEvent: {fileID: 0}
   movementByVelocityEvent: {fileID: 0}
   movementToPositionEvent: {fileID: 0}
+  setActiveWeaponEvent: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &531678295900686786
@@ -721,6 +724,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1353d2637a86f942b31a3e283492424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4016021218047394898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4232ae8b5ad812743968d67f3baa6bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5664964270380973857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f838bf98f100f614ebe7ead7d419faf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSpriteRenderer: {fileID: 8975400421989586055}
+  weaponPolygonCollider2D: {fileID: 843954745569862864}
+  weaponShootPositionTransform: {fileID: 8743913240350863816}
+  weaponEffectPositionTransform: {fileID: 7383889383131990451}
 --- !u!1 &7434930515277950481
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class Ammo : MonoBehaviour, IFireable {
     private float ammoChargeTimer;
     private bool isAmmoMaterialSet = false;
     private bool overrideAmmoMovement;
+    private Weapon damageSource;
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -50,7 +51,9 @@ public class Ammo : MonoBehaviour, IFireable {
     }
 
     public void InitializeAmmo(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, float ammoSpeed,
-        Vector3 weaponAimDirectionVector, bool overrideAmmoMovement = false) {
+        Vector3 weaponAimDirectionVector, Weapon damageSource, bool overrideAmmoMovement = false) {
+        this.damageSource = damageSource;
+
         #region ammo
 
         this.ammoDetails = ammoDetails;

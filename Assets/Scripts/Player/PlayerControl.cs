@@ -5,12 +5,15 @@ using UnityEditor;
 using UnityEngine;
 
 // TODO: ALL the event should be simplified to using Unity Input System later on in the project
+[RequireComponent(typeof(Player))]
+[DisallowMultipleComponent]
 public class PlayerControl : MonoBehaviour {
     [SerializeField] private MovementDetailsSO movementDetails;
 
     [SerializeField] private Transform weaponShootPosition;
 
     private Player player;
+    private int currentWeaponIndex = 0;
     private float moveSpeed;
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
@@ -22,9 +25,36 @@ public class PlayerControl : MonoBehaviour {
         moveSpeed = movementDetails.GetMoveSpeed();
     }
 
+    public void SetMoveSpeed(float moveSpeed) {
+        this.moveSpeed = moveSpeed;
+        SetPlayerAnimationSpeed();
+    }
+
     private void Start() {
         waitForFixedUpdate = new WaitForFixedUpdate();
+        SetStartingWeapon();
         SetPlayerAnimationSpeed();
+    }
+
+
+    private void SetStartingWeapon() {
+        int index = 0;
+
+        foreach (var weapon in player.weaponList) {
+            if (weapon.weaponDetails == player.playerDetails.startingWeapon) {
+                SetWeaponByIndex(index);
+                break;
+            }
+
+            index++;
+        }
+    }
+
+    private void SetWeaponByIndex(int index) {
+        if (index < player.weaponList.Count) {
+            currentWeaponIndex = index;
+            player.setActiveWeaponEvent.CallSetActiveWeaponEvent(player.weaponList[currentWeaponIndex]);
+        }
     }
 
     private void SetPlayerAnimationSpeed() {
@@ -33,10 +63,17 @@ public class PlayerControl : MonoBehaviour {
 
 
     private void Update() {
+        DebugInput();
         if (isPlayerRolling) return;
         MovementInput();
         WeaponInput();
         PlayerRollCoolDownTimer();
+    }
+
+    private void DebugInput() {
+        if (Input.GetMouseButton(2)) {
+            GameManager.Instance.TriggerGhostMode(true);
+        }
     }
 
     private void PlayerRollCoolDownTimer() {
@@ -51,19 +88,28 @@ public class PlayerControl : MonoBehaviour {
         AimDirection playerAimDirection;
 
         AimWeaponInput(out weaponDirection, out weaponAngleDegrees, out playerAngleDegrees, out playerAimDirection);
+        FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
+    }
+
+    private void FireWeaponInput(Vector3 weaponDirection, float weaponAngleDegrees, float playerAngleDegrees,
+        AimDirection playerAimDirection) {
+        if (Input.GetMouseButton(0)) {
+            player.fireWeaponEvent.CallFireWeaponEvent(true, playerAimDirection, playerAngleDegrees, weaponAngleDegrees,
+                weaponDirection);
+        }
     }
 
     private void AimWeaponInput(out Vector3 weaponDirection, out float weaponAngleDegrees, out float playerAngleDegrees,
         out AimDirection playerAimDirection) {
         Vector3 mouseWorldPosition = HelperUtilities.GetMouseWorldPosition();
-        weaponDirection = (mouseWorldPosition - weaponShootPosition.position);
-        // Prevent strange aim direction problem
-        if (weaponDirection.magnitude < 2.5f) {
-            weaponDirection = transform.position + (mouseWorldPosition - transform.position).normalized * 2.5f -
-                              weaponShootPosition.position;
-        }
+        weaponDirection = (mouseWorldPosition - player.activeWeapon.GetShootPosition());
 
         Vector3 playerDirection = (mouseWorldPosition - transform.position);
+
+        // Prevent strange aim direction problem
+        if (weaponDirection.magnitude < Settings.useAimAngleDistance) {
+            weaponDirection = playerDirection;
+        }
 
         weaponAngleDegrees = HelperUtilities.GetAngleFromVector(weaponDirection);
         playerAngleDegrees = HelperUtilities.GetAngleFromVector(playerDirection);

@@ -630,6 +630,8 @@ MonoBehaviour:
   gameState: 0
   GameSeed: 12345
   RandomGeneratingNodeGraph: 1
+  RestartGame: 0
+  RestartGameWithSeed: 0
 --- !u!4 &663313339
 Transform:
   m_ObjectHideFlags: 0

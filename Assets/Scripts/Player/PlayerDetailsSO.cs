@@ -11,6 +11,9 @@ public class PlayerDetailsSO : ScriptableObject {
 
     [Space(10)] [Header("Player Health")] public int playerHealthAmount;
 
+    [Space(10)] [Header("Weapon")] public WeaponDetailsSO startingWeapon;
+    public List<WeaponDetailsSO> startingWeaponList;
+
     [Tooltip("This icon is used in the minimap to represent the player")] [Space(10)] [Header("Player Minimap Icon")]
     public Sprite playerMinimapIcon;
 
@@ -24,8 +27,10 @@ public class PlayerDetailsSO : ScriptableObject {
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerPrefab), playerPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(runtimeAnimatorController), runtimeAnimatorController);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(playerHealthAmount), playerHealthAmount, false);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(startingWeapon), startingWeapon);
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerMinimapIcon), playerMinimapIcon);
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerHandSprite), playerHandSprite);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(startingWeaponList), startingWeaponList);
     }
 #endif
 
