@@ -12,6 +12,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(WeaponFiredEvent))]
 [DisallowMultipleComponent]
 public class FireWeapon : MonoBehaviour {
+    private float firePreChargeTimer = 0f;
     private float fireRateCoolDownTimer = 0f;
     private ActiveWeapon activeWeapon;
     private FireWeaponEvent fireWeaponEvent;
@@ -42,12 +43,27 @@ public class FireWeapon : MonoBehaviour {
     }
 
     private void WeaponFire(FireWeaponEventArgs fireWeaponEventArgs) {
+        WeaponPreCharge(fireWeaponEventArgs);
+
         if (fireWeaponEventArgs.fire) {
             if (IsWeaponReadyToFire()) {
                 FireAmmo(fireWeaponEventArgs.aimAngle, fireWeaponEventArgs.weaponAimAngle,
                     fireWeaponEventArgs.weaponAimDirectionVector);
                 ResetCoolDownTimer();
+                ResetPreChargeTimmer();
             }
+        }
+    }
+
+    private void ResetPreChargeTimmer() {
+        firePreChargeTimer = activeWeapon.GetCurrentWeapon().weaponDetails.weaponPrechargeTime;
+    }
+
+    private void WeaponPreCharge(FireWeaponEventArgs fireWeaponEventArgs) {
+        if (fireWeaponEventArgs.firePreviousFrame) {
+            firePreChargeTimer -= Time.deltaTime;
+        } else {
+            ResetPreChargeTimmer();
         }
     }
 
@@ -87,7 +103,7 @@ public class FireWeapon : MonoBehaviour {
             return false;
         }
 
-        if (fireRateCoolDownTimer > 0) {
+        if (fireRateCoolDownTimer > 0 || firePreChargeTimer > 0) {
             return false;
         }
 
