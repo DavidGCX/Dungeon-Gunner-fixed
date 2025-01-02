@@ -56,10 +56,8 @@ public class ReloadWeapon : MonoBehaviour {
             weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
         } else if (weapon.weaponRemainingAmmo >= weapon.weaponDetails.weaponClipAmmoCapacity) {
             weapon.weaponClipRemainingAmmo = weapon.weaponDetails.weaponClipAmmoCapacity;
-            weapon.weaponRemainingAmmo -= weapon.weaponDetails.weaponClipAmmoCapacity;
         } else {
             weapon.weaponClipRemainingAmmo = weapon.weaponRemainingAmmo;
-            weapon.weaponRemainingAmmo = 0;
         }
 
         weapon.weaponReloadTimer = 0f;
