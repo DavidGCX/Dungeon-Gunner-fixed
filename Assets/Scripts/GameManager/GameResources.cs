@@ -30,6 +30,8 @@ public class GameResources : MonoBehaviour {
 
     public Shader variableLitShader;
 
+    [Space(10)] [Header("UI")] public GameObject ammoIconPrefab;
+
     #region validation
 
 #if UNITY_EDITOR

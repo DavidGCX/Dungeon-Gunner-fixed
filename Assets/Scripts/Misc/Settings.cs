@@ -59,4 +59,11 @@ public static class Settings {
 
     #endregion
 
+    #region UI Parameters
+
+    public const float uiAmmoIconSpacing = 4f;
+
+
+    #endregion
+
 }
