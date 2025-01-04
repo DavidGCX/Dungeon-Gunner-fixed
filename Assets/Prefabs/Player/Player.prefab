@@ -326,6 +326,12 @@ GameObject:
   - component: {fileID: 8267885661497878175}
   - component: {fileID: 4016021218047394898}
   - component: {fileID: 5664964270380973857}
+  - component: {fileID: 4019394921641972674}
+  - component: {fileID: 6588892664312325152}
+  - component: {fileID: 7198256050334017302}
+  - component: {fileID: 3830492949446203589}
+  - component: {fileID: 3705971088542875093}
+  - component: {fileID: 3567683094962192346}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -592,6 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c4123690a6d4f744a42388104e892a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InstanceId: 0
   playerDetails: {fileID: 0}
   health: {fileID: 0}
   idleEvent: {fileID: 0}
@@ -599,6 +606,11 @@ MonoBehaviour:
   movementByVelocityEvent: {fileID: 0}
   movementToPositionEvent: {fileID: 0}
   setActiveWeaponEvent: {fileID: 0}
+  fireWeaponEvent: {fileID: 0}
+  weaponFiredEvent: {fileID: 0}
+  activeWeapon: {fileID: 0}
+  reloadWeaponEvent: {fileID: 0}
+  weaponReloadedEvent: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &531678295900686786
@@ -752,6 +764,78 @@ MonoBehaviour:
   weaponPolygonCollider2D: {fileID: 843954745569862864}
   weaponShootPositionTransform: {fileID: 8743913240350863816}
   weaponEffectPositionTransform: {fileID: 7383889383131990451}
+--- !u!114 &4019394921641972674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6937c43a2e48e48acad1aa0b860941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6588892664312325152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9075af00342fc346923bf3df29846a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7198256050334017302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd81e2afa6f2efd4598071b49f241c18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3830492949446203589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc2b1a01cf4abc40b336977680a452c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3705971088542875093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d52398d1dd58745b74c33698f0a930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3567683094962192346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5aa04b8e68473f4e909a63b02edfa59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7434930515277950481
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +915,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.625, y: 0.6875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -872,10 +956,10 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.30512822, y: 0.28787878}
+    oldSize: {x: 1.625, y: 0.6875}
+    newSize: {x: 1.625, y: 0.6875}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0

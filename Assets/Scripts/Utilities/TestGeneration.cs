@@ -5,6 +5,7 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 public class TestGeneration : MonoBehaviour {
+#if UNITY_EDITOR
     // Start is called before the first frame update
 
     private RoomNodeGraphSO currentGraph;
@@ -47,4 +48,5 @@ public class TestGeneration : MonoBehaviour {
         string path = "Assets/Resources/RoomNodeGraphSO.asset";
         AssetDatabase.DeleteAsset(path);
     }
+#endif
 }

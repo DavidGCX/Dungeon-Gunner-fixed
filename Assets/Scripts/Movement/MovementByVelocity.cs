@@ -30,6 +30,6 @@ public class MovementByVelocity : MonoBehaviour {
     }
 
     private void MoveRigidBody(Vector2 arg2MoveDirection, float arg2MoveSpeed) {
-        rigitBody2D.velocity = arg2MoveDirection * arg2MoveSpeed;
+        rigitBody2D.linearVelocity = arg2MoveDirection * arg2MoveSpeed;
     }
 }

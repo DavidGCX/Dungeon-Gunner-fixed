@@ -20,7 +20,9 @@ public class RoomNodeSO : ScriptableObject {
         this.roomNodeGraph = nodeGraph;
         this.id = Guid.NewGuid().ToString();
         this.name = "RoomNode_" + roomNodeType.roomNodeTypeName;
+#if UNITY_EDITOR
         this.rect = new Rect(new Vector2(0, 0), new Vector2(160, 75));
+        #endif
         roomNodeTypeList = GameResources.Instance.roomNodeTypeList;
     }
 

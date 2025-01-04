@@ -90,7 +90,100 @@ public class PlayerControl : MonoBehaviour {
 
         AimWeaponInput(out weaponDirection, out weaponAngleDegrees, out playerAngleDegrees, out playerAimDirection);
         FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
+        SwitchWeaponInput();
         ReloadWeaponInput();
+    }
+
+    private void SwitchWeaponInput() {
+        if (Input.mouseScrollDelta.y < 0f) {
+            PreviousWeapon();
+        }
+
+        if (Input.mouseScrollDelta.y > 0f) {
+            NextWeapon();
+        }
+
+        // Need to refactor
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            SetWeaponByIndex(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            SetWeaponByIndex(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            SetWeaponByIndex(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            SetWeaponByIndex(3);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {
+            SetWeaponByIndex(4);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6)) {
+            SetWeaponByIndex(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha7)) {
+            SetWeaponByIndex(6);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha8)) {
+            SetWeaponByIndex(7);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9)) {
+            SetWeaponByIndex(8);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            SetWeaponByIndex(9);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus)) {
+            SetCurrentWeaponToFirstInTheList();
+        }
+    }
+
+    private void SetCurrentWeaponToFirstInTheList() {
+        List<Weapon> weaponList = new List<Weapon>();
+        Weapon currentWeapon = player.weaponList[currentWeaponIndex];
+        currentWeapon.weaponListPosition = 0;
+        weaponList.Add(currentWeapon);
+        int index = 1;
+
+        foreach (var weapon in player.weaponList) {
+            if (Equals(weapon, currentWeapon)) continue;
+            weapon.weaponListPosition = index;
+            weaponList.Add(weapon);
+            index++;
+        }
+
+        player.weaponList = weaponList;
+        currentWeaponIndex = 0;
+        SetWeaponByIndex(currentWeaponIndex);
+    }
+
+    private void PreviousWeapon() {
+        currentWeaponIndex--;
+        if (currentWeaponIndex < 0) {
+            currentWeaponIndex = player.weaponList.Count - 1;
+        }
+
+        SetWeaponByIndex(currentWeaponIndex);
+    }
+
+    private void NextWeapon() {
+        currentWeaponIndex++;
+        if (currentWeaponIndex >= player.weaponList.Count) {
+            currentWeaponIndex = 0;
+        }
+
+        SetWeaponByIndex(currentWeaponIndex);
     }
 
     private void ReloadWeaponInput() {

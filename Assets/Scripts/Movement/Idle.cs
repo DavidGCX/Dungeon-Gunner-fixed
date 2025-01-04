@@ -27,6 +27,6 @@ public class Idle : MonoBehaviour {
     }
 
     private void MoveRigidbody() {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
     }
 }
