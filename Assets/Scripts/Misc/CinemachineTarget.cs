@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 
 
@@ -20,19 +20,22 @@ public class CinemachineTarget : MonoBehaviour {
 
     private void SetCineMachineTargetGroup() {
         CinemachineTargetGroup.Target cinemachineTarget = new CinemachineTargetGroup.Target {
-            weight = 1f,
-            radius = 3f,
-            target = GameManager.Instance.player.transform
+            Weight = 1f,
+            Radius = 3f,
+            Object = GameManager.Instance.player.transform
         };
 
         CinemachineTargetGroup.Target cinemachineCursorTarget = new CinemachineTargetGroup.Target {
-            weight = 1f,
-            radius = 1f,
-            target = cursorTarget
+            Weight = 1f,
+            Radius = 1f,
+            Object = cursorTarget
         };
 
-        var targets = new[] { cinemachineTarget, cinemachineCursorTarget };
-        targetGroup.m_Targets = targets;
+        var targets = new List<CinemachineTargetGroup.Target>() {
+            cinemachineTarget,
+            cinemachineCursorTarget
+        };
+        targetGroup.Targets = targets;
     }
 
     private void Update() {
