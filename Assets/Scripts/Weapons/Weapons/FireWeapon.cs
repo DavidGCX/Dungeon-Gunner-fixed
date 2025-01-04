@@ -74,6 +74,20 @@ public class FireWeapon : MonoBehaviour {
     private void FireAmmo(float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector) {
         AmmoDetailsSO currentAmmo = activeWeapon.GetCurrentAmmo();
         if (currentAmmo) {
+            StartCoroutine(FireAmmoRoutine(currentAmmo, aimAngle, weaponAimAngle, weaponAimDirectionVector));
+        }
+    }
+
+    private IEnumerator FireAmmoRoutine(AmmoDetailsSO currentAmmo, float aimAngle, float weaponAimAngle,
+        Vector3 weaponAimDirectionVector) {
+        int ammoCounter = 0;
+        int ammoPerShot = Random.Range(currentAmmo.ammoSpawnAmountMin, currentAmmo.ammoSpawnAmountMax + 1);
+
+        float ammoSpawnInterval = ammoPerShot > 1
+            ? Random.Range(currentAmmo.ammoSpawnIntervalMin, currentAmmo.ammoSpawnIntervalMax)
+            : 0;
+        while (ammoCounter < ammoPerShot) {
+            ammoCounter++;
             GameObject ammoPrefab = currentAmmo.ammoPrefabArray[Random.Range(0, currentAmmo.ammoPrefabArray.Length)];
 
             float ammoSpeed = Random.Range(currentAmmo.ammoSpeedMin, currentAmmo.ammoSpeedMax);
@@ -83,14 +97,15 @@ public class FireWeapon : MonoBehaviour {
 
             ammo.InitializeAmmo(currentAmmo, aimAngle, weaponAimAngle, ammoSpeed, weaponAimDirectionVector,
                 activeWeapon.GetCurrentWeapon());
-
-            if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity) {
-                activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo--;
-                activeWeapon.GetCurrentWeapon().weaponRemainingAmmo--;
-            }
-
-            weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
+            yield return new WaitForSeconds(ammoSpawnInterval);
         }
+
+        if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity) {
+            activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo--;
+            activeWeapon.GetCurrentWeapon().weaponRemainingAmmo--;
+        }
+
+        weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
     }
 
     private bool IsWeaponReadyToFire() {

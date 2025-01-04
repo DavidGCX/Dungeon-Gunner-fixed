@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8892082938508702474}
   - component: {fileID: 4389834731589316039}
   m_Layer: 14
-  m_Name: PlayerAmm2x2
+  m_Name: PlayerAmmo2x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
