@@ -98,6 +98,10 @@ public class GameManager : SingletonMonobehavior<GameManager> {
         return player;
     }
 
+    public void DisplayMessage(string message, MessageType messageType) {
+        messageStack.AddMessage(message, messageType);
+    }
+
     private void PlayDungeonLevel(int dungeonLevelListIndex) {
         bool dungeonBuiltSuccessfully = DungeonBuilder.Instance.GenerateDungeon(
             dungeonLevelList[dungeonLevelListIndex]);

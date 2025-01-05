@@ -25,7 +25,7 @@ public class Door : MonoBehaviour {
             OpenDoor();
         }
         if(isLocked) {
-
+            GameManager.Instance.messageStack.AddMessage("The door is locked", MessageType.Warning);
         }
     }
 
