@@ -64,6 +64,10 @@ public class Player : MonoBehaviour {
         return InstanceId == otherPlayer.InstanceId;
     }
 
+    public override int GetHashCode() {
+        return base.GetHashCode();
+    }
+
     private void Awake() {
         InstanceId = GetInstanceID();
         health = GetComponent<Health>();

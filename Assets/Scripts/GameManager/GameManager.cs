@@ -16,6 +16,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     private PlayerDetailsSO playerDetails;
     public Player player;
     public GameState gameState;
+    public MessageStack messageStack;
 
     [Header("Testing only need to integrate to Game UI later")]
     public int GameSeed = 12345678;
@@ -100,6 +101,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     private void PlayDungeonLevel(int dungeonLevelListIndex) {
         bool dungeonBuiltSuccessfully = DungeonBuilder.Instance.GenerateDungeon(
             dungeonLevelList[dungeonLevelListIndex]);
+        messageStack.AddMessage("Dungeon built successfully", MessageType.Event);
         if (!dungeonBuiltSuccessfully) {
             Debug.LogError("Dungeon not built successfully");
         }

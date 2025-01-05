@@ -49,7 +49,7 @@ public class PoolManager : SingletonMonobehavior<PoolManager> {
             ResetObject(position, rotation, componentToReuse, prefab);
             return componentToReuse;
         } else {
-            Debug.LogWarning("Pool for " + prefab + " does not exist.");
+            Debug.LogError("Pool for " + prefab + " does not exist.");
             return null;
         }
     }

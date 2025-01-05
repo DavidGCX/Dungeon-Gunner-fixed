@@ -47,6 +47,7 @@ public static class HelperUtilities {
     public static Vector3 GetDirectionVectorFromAngle(float angle) {
         return new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0);
     }
+
     public static AimDirection GetAimDirection(Vector3 direction) {
         float angle = GetAngleFromVector(direction);
         if (angle is >= 22f and <= 67f) {
@@ -62,6 +63,12 @@ public static class HelperUtilities {
         } else {
             return AimDirection.Right;
         }
+    }
+
+    public static float LinearToDecibels(float linear) {
+        float linearScaleRange = 20f;
+
+        return Mathf.Log10(linear / linearScaleRange) * 20f;
     }
 
     public static bool ValidateCheckEmptyString(Object thisObject, string fieldName,

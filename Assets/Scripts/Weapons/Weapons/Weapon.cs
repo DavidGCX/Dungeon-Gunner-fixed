@@ -22,4 +22,8 @@ public class Weapon {
         Weapon weapon = (Weapon)obj;
         return weaponDetails == weapon.weaponDetails;
     }
+
+    public override int GetHashCode() {
+        return base.GetHashCode();
+    }
 }

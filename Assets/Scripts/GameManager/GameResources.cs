@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameResources : MonoBehaviour {
     private static GameResources instance;
@@ -24,7 +25,9 @@ public class GameResources : MonoBehaviour {
 
     [Space(10)] [Header("PLAYER")] public CurrentPlayerSO currentPlayer;
 
-    public Material dimmedMaterial;
+    [Space(10)] [Header("SOUNDS")] public AudioMixerGroup soundsMasterMixerGroup;
+    public SoundEffectSO doorOpenSoundEffect;
+    [Space(10)] [Header("MATERIALS")] public Material dimmedMaterial;
 
     public Material litMaterial;
 
@@ -41,6 +44,9 @@ public class GameResources : MonoBehaviour {
         HelperUtilities.ValidateCheckNullValue(this, nameof(dimmedMaterial), dimmedMaterial);
         HelperUtilities.ValidateCheckNullValue(this, nameof(litMaterial), litMaterial);
         HelperUtilities.ValidateCheckNullValue(this, nameof(variableLitShader), variableLitShader);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(soundsMasterMixerGroup), soundsMasterMixerGroup);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(doorOpenSoundEffect), doorOpenSoundEffect);
     }
 #endif
 

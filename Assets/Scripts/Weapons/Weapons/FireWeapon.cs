@@ -106,6 +106,15 @@ public class FireWeapon : MonoBehaviour {
         }
 
         weaponFiredEvent.CallWeaponFiredEvent(activeWeapon.GetCurrentWeapon());
+        WeaponSoundEffect();
+    }
+
+    private void WeaponSoundEffect() {
+        GameManager.Instance.messageStack.AddMessage("Weapon fired", MessageType.Normal);
+        if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponFiringSoundEffect) {
+            SoundEffectManager.Instance.PlaySoundEffect(activeWeapon.GetCurrentWeapon().weaponDetails
+                .weaponFiringSoundEffect);
+        }
     }
 
     private bool IsWeaponReadyToFire() {

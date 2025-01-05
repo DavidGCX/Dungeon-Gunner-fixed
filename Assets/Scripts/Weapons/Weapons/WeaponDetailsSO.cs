@@ -13,6 +13,8 @@ public class WeaponDetailsSO : ScriptableObject {
     public Vector3 weaponShootPosition;
 
     public AmmoDetailsSO weaponCurrentAmmo;
+    public SoundEffectSO weaponFiringSoundEffect;
+    public SoundEffectSO weaponReloadingSoundEffect;
 
     [Space(10)] [Header("Weapon Operating Values")]
     public bool hasInfiniteAmmo = false;

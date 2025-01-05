@@ -14,12 +14,12 @@ public class DoorLightingControl : MonoBehaviour {
 
     public void FadeInDoor(Door door) {
         Material material = new Material(GameResources.Instance.variableLitShader);
-
-        if (!isLit) {
+        DoorLightingControl doorLightingControl = door.GetComponentInChildren<DoorLightingControl>();
+        if (!doorLightingControl.isLit) {
             SpriteRenderer[] spriteRenderers = GetComponentsInParent<SpriteRenderer>();
             foreach (var spriteRenderer in spriteRenderers) {
                 StartCoroutine(FadeInDoorRoutine(spriteRenderer, material));
-                isLit = true;
+                doorLightingControl.isLit = true;
             }
         }
     }

@@ -12,6 +12,7 @@ public class Door : MonoBehaviour {
     private bool isOpen = false;
     private bool previouslyOpened = false;
     private Animator animator;
+    private bool isLocked = false;
 
     private void Awake() {
         animator = GetComponent<Animator>();
@@ -22,6 +23,9 @@ public class Door : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag(Settings.playerTag) || other.CompareTag(Settings.playerWeapon)) {
             OpenDoor();
+        }
+        if(isLocked) {
+
         }
     }
 
@@ -42,10 +46,13 @@ public class Door : MonoBehaviour {
             doorTrigger.enabled = false;
 
             animator.SetBool(Settings.open, true);
+
+            SoundEffectManager.Instance.PlaySoundEffect(GameResources.Instance.doorOpenSoundEffect);
         }
     }
 
     public void LockDoor() {
+        isLocked = true;
         isOpen = false;
         doorCollider.enabled = true;
         doorTrigger.enabled = false;
@@ -54,6 +61,7 @@ public class Door : MonoBehaviour {
     }
 
     public void UnLockDoor() {
+        isLocked = false;
         doorCollider.enabled = false;
         doorTrigger.enabled = true;
         if (previouslyOpened) {
