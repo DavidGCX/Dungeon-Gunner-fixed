@@ -12,7 +12,7 @@ public class Door : MonoBehaviour {
     private bool isOpen = false;
     private bool previouslyOpened = false;
     private Animator animator;
-    private bool isLocked = false;
+    public bool isLocked = false;
 
     private void Awake() {
         animator = GetComponent<Animator>();
@@ -23,9 +23,6 @@ public class Door : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag(Settings.playerTag) || other.CompareTag(Settings.playerWeapon)) {
             OpenDoor();
-        }
-        if(isLocked) {
-            GameManager.Instance.messageStack.AddMessage("The door is locked", MessageType.Warning);
         }
     }
 

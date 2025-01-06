@@ -36,5 +36,8 @@ public class DoorLightingControl : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         FadeInDoor(door);
+        if (door.isLocked && other.CompareTag(Settings.playerTag)) {
+            GameManager.Instance.messageStack.AddMessage("The door is locked", MessageType.Warning);
+        }
     }
 }

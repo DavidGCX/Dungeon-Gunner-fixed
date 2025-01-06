@@ -97,6 +97,9 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     public Player GetPlayer() {
         return player;
     }
+    public Sprite GetPlayerMinimapIcon() {
+        return playerDetails.playerMinimapIcon;
+    }
 
     public void DisplayMessage(string message, MessageType messageType) {
         messageStack.AddMessage(message, messageType);
