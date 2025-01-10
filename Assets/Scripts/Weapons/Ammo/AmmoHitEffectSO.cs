@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "WeaponShootEffect_", menuName = "Scriptable Objects/Weapons/Weapon Shoot Effect")]
-public class WeaponShootEffectSO : ScriptableObject {
-    [Header("Weapon Shoot Effect Details")]
-    public Gradient colorGradient;
+[CreateAssetMenu(fileName = "AmmoHitEffect_", menuName = "Scriptable Objects/Weapons/Ammo Hit Effect")]
+public class AmmoHitEffectSO : ScriptableObject {
+    [Header("Ammo Hit Effect Details")] public Gradient colorGradient;
 
     public float duration = 0.5f;
     public float startParticleSize = 0.25f;
@@ -17,7 +16,7 @@ public class WeaponShootEffectSO : ScriptableObject {
     public Sprite sprite;
     public Vector3 velocityOverLifetimeMin;
     public Vector3 velocityOverLifetimeMax;
-    public GameObject weaponShootEffectPrefab;
+    public GameObject ammoHitEffectPrefab;
 
     #region validation
 
@@ -31,7 +30,11 @@ public class WeaponShootEffectSO : ScriptableObject {
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(emissionRate)
             , emissionRate, true);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(burstParticleNumber), burstParticleNumber, false);
-        HelperUtilities.ValidateCheckNullValue(this, nameof(weaponShootEffectPrefab), weaponShootEffectPrefab);
+        if (!ammoHitEffectPrefab) {
+            ammoHitEffectPrefab = Resources.Load<GameObject>("AmmoHitEffect");
+        }
+
+        HelperUtilities.ValidateCheckNullValue(this, nameof(ammoHitEffectPrefab), ammoHitEffectPrefab);
     }
 
 #endif

@@ -21,6 +21,9 @@ public class AmmoDetailsSO : ScriptableObject {
 
     public Material ammoChargeMaterial;
 
+    [Space(10)] [Header("Ammo Hit Effect")]
+    public AmmoHitEffectSO ammoHitEffect;
+
     [Space(10)] [Header("Ammo Base Parameters")]
     public int ammoDamage = 1;
 
