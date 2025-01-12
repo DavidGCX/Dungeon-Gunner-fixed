@@ -21,6 +21,14 @@ public class Room {
     public bool isPreviouslyVisited = false;
     public InstantiatedRoom instantiatedRoom;
 
+    public int templateHeight {
+        get { return templateUpperBounds.y - templateLowerBounds.y + 1; }
+    }
+
+    public int templateWidth {
+        get { return templateUpperBounds.x - templateLowerBounds.x + 1; }
+    }
+
     public Room() {
         childRoomIDList = new List<string>();
         doorwayList = new List<Doorway>();

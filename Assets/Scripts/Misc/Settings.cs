@@ -41,8 +41,10 @@ public static class Settings {
     public static int rollRight = Animator.StringToHash("rollRight");
 
     public static float baseSpeedForPlayerAnimations = 8f;
+
     // Door
     public static int open = Animator.StringToHash("open");
+
     #endregion
 
     #region gameTags
@@ -59,11 +61,16 @@ public static class Settings {
 
     #endregion
 
+    #region Astar Pathfinding Parameters
+
+    public const int defaultAStarMovementPenalty = 40;
+    public const int preferredPathAStarMovementPenalty = 1;
+
+    #endregion
+
     #region UI Parameters
 
     public const float uiAmmoIconSpacing = 4f;
 
-
     #endregion
-
 }

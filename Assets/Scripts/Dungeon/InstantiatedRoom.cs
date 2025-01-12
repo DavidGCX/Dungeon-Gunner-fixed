@@ -16,6 +16,7 @@ public class InstantiatedRoom : MonoBehaviour {
     [HideInInspector] public Tilemap frontTilemap;
     [HideInInspector] public Tilemap collisionTilemap;
     [HideInInspector] public Tilemap minimapTilemap;
+    [HideInInspector] public int[,] aStarMovementPenalty;
     [HideInInspector] public Bounds roomColliderBounds;
 
 
@@ -37,8 +38,29 @@ public class InstantiatedRoom : MonoBehaviour {
     public void Initialize(GameObject roomGameObject) {
         PopulateTilemapMemberVariables(roomGameObject);
         BlockOffUnusedDoorWays();
+        AddObstaclesAndPreferred();
         AddDoorsToRoom();
         DisableCollisionTilemapRenderer();
+    }
+
+    private void AddObstaclesAndPreferred() {
+        aStarMovementPenalty = new int[room.templateWidth, room.templateHeight];
+        for (int x = 0; x < room.templateWidth; x++) {
+            for (int y = 0; y < room.templateHeight; y++) {
+                aStarMovementPenalty[x, y] = Settings.defaultAStarMovementPenalty;
+                TileBase tile = collisionTilemap.GetTile(new Vector3Int(x + room.templateLowerBounds.x,
+                    y + room.templateLowerBounds.y, 0));
+                foreach (TileBase unwalkableTile in GameResources.Instance.enemyUnwalkableCollisionTileArray) {
+                    if (tile == unwalkableTile) {
+                        aStarMovementPenalty[x, y] = 0;
+                    }
+                }
+
+                if (tile == GameResources.Instance.preferredEnemyPathTile) {
+                    aStarMovementPenalty[x, y] = Settings.preferredPathAStarMovementPenalty;
+                }
+            }
+        }
     }
 
     private void AddDoorsToRoom() {

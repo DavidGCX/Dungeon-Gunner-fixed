@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.Audio;
 
 public class GameResources : MonoBehaviour {
@@ -33,6 +34,11 @@ public class GameResources : MonoBehaviour {
 
     public Shader variableLitShader;
 
+    [Space(10)] [Header("Special tilemap tiles for testing")]
+    public TileBase[] enemyUnwalkableCollisionTileArray;
+
+    public TileBase preferredEnemyPathTile;
+
     [Space(10)] [Header("UI")] public GameObject ammoIconPrefab;
 
     #region validation
@@ -47,6 +53,9 @@ public class GameResources : MonoBehaviour {
         HelperUtilities.ValidateCheckNullValue(this, nameof(ammoIconPrefab), ammoIconPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(soundsMasterMixerGroup), soundsMasterMixerGroup);
         HelperUtilities.ValidateCheckNullValue(this, nameof(doorOpenSoundEffect), doorOpenSoundEffect);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(enemyUnwalkableCollisionTileArray),
+            enemyUnwalkableCollisionTileArray);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(preferredEnemyPathTile), preferredEnemyPathTile);
     }
 #endif
 
