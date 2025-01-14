@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 532990921ceb3714cb9ced105acf4295, type: 3}
-  m_Name: EnemyDetails_SlimeBlockKind_Blue_MP7
+  m_Script: {fileID: 11500000, guid: c484ffdaf72cdba459b3d92daf56fa5d, type: 3}
+  m_Name: MovementDetails_SlimeBlock_Blue
   m_EditorClassIdentifier: 
-  enemyName: Slime Block King Blue
-  enemyPrefab: {fileID: 7301566617106777011, guid: 3e7ca37793e138e4eb9b25982053be3f, type: 3}
+  minMoveSpeed: 1
+  maxMoveSpeed: 3
+  rollSpeed: 0
+  rollDistance: 0
+  rollCooldownTime: 0

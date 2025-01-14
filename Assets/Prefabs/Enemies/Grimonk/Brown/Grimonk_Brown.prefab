@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grimonk_Brown
       objectReference: {fileID: 0}
+    - target: {fileID: 2263331488724020895, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: f4197b213dcde754ca923aba8913c700, type: 2}
     - target: {fileID: 5166136753632019056, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -120,6 +124,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 944ecbb1810696b4a8a6781ac1e002a5, type: 2}
+    - target: {fileID: 5896891777990526902, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 437e52bad76f02a41bc670b9cdd2457c, type: 2}
     - target: {fileID: 6045015809949655396, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

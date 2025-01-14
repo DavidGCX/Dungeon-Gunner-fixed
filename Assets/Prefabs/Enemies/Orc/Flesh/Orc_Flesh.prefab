@@ -120,6 +120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orc_Flesh
       objectReference: {fileID: 0}
+    - target: {fileID: 2263331488724020895, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: c0e504000fffb98408444ccd4dfec746, type: 2}
     - target: {fileID: 5166136753632019056, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -140,6 +144,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: cf2b002105910e04a8f79c160b4602a0, type: 2}
+    - target: {fileID: 5896891777990526902, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: d99ff43d9cc890549badc7197b8d7d8e, type: 2}
     - target: {fileID: 6045015809949655396, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

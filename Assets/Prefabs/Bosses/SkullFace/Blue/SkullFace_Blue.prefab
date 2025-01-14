@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkullFace_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 2263331488724020895, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: bcfd6af0a0338c84f8bc3e91432f0fc0, type: 2}
     - target: {fileID: 5166136753632019056, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -108,6 +112,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 2a6e05932cc7db243b3bb6296cff5612, type: 2}
+    - target: {fileID: 5896891777990526902, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 2be3eb5aacbe36c4aa2800b6a10c3e30, type: 2}
     - target: {fileID: 6045015809949655396, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -13,6 +13,9 @@ public static class AStar {
 
         Node startNode = gridNodes.GetGridNode(startGridPosition.x, startGridPosition.y);
         Node targetNode = gridNodes.GetGridNode(endGridPosition.x, endGridPosition.y);
+        if (startNode == null || targetNode == null) {
+            return null;
+        }
 
         Node endPathNode = FindShortestPath(gridNodes, openNodeList, closedNodeHashSet, startNode, targetNode,
             room.instantiatedRoom);

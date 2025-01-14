@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlimeBlockKing_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 2263331488724020895, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: ba11a9af878bf6d44b3fd9ff2aeb8e20, type: 2}
     - target: {fileID: 5166136753632019056, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -76,6 +80,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c584c390b9e9e4e4faab37cd1bfce8b3, type: 2}
+    - target: {fileID: 5896891777990526902, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e5ebc21a280a894caf959b2b90b76e7, type: 2}
     - target: {fileID: 6045015809949655396, guid: 3174b12863dda2048a25e5ddc5a5b2af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
