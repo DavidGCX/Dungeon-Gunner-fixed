@@ -795,9 +795,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.041666668
+    width: 0.25
+    height: 0.25
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -1068,6 +1068,7 @@ GameObject:
   - component: {fileID: 663313339}
   - component: {fileID: 663313338}
   - component: {fileID: 663313340}
+  - component: {fileID: 663313341}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1125,6 +1126,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663313337}
   m_Enabled: 1
+--- !u!114 &663313341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663313337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d0a0b79c6697b4ab75edacdf96b4b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomTemplate: {fileID: 11400000, guid: 5ec7c3fd29261984abd0f0a91400645d, type: 2}
 --- !u!1 &668821766
 GameObject:
   m_ObjectHideFlags: 0

@@ -127,6 +127,10 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     public Room GetCurrentRoom() {
         return currentRoom;
     }
+
+    public DungeonLevelSO GetCurrentDungeonLevel() {
+        return dungeonLevelList[currentDungeonLevelListIndex];
+    }
 #if UNITY_EDITOR
     private void OnValidate() {
         HelperUtilities.ValidateCheckEnumerableValues(this,
