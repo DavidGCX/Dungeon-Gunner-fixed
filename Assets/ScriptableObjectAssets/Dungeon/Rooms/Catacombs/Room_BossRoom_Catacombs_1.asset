@@ -27,6 +27,7 @@ MonoBehaviour:
     doorwayCopyTileHeight: 11
     isConnected: 0
     isUnavailable: 0
+    connectedRoomID: 
   - position: {x: 5, y: -2}
     orientation: 2
     doorPrefab: {fileID: 3016947087967427602, guid: 3401086b952c7384a9e77c9b97c035bd, type: 3}
@@ -35,6 +36,7 @@ MonoBehaviour:
     doorwayCopyTileHeight: 5
     isConnected: 0
     isUnavailable: 0
+    connectedRoomID: 
   - position: {x: 34, y: 27}
     orientation: 1
     doorPrefab: {fileID: 901092306736368931, guid: bcbfdc103a5742f4f841beee52f0a4ba, type: 3}
@@ -43,6 +45,7 @@ MonoBehaviour:
     doorwayCopyTileHeight: 8
     isConnected: 0
     isUnavailable: 0
+    connectedRoomID: 
   - position: {x: -24, y: 27}
     orientation: 3
     doorPrefab: {fileID: 901092306736368931, guid: bcbfdc103a5742f4f841beee52f0a4ba, type: 3}
@@ -51,7 +54,49 @@ MonoBehaviour:
     doorwayCopyTileHeight: 8
     isConnected: 0
     isUnavailable: 0
+    connectedRoomID: 
   spawnPositionArray:
   - {x: -6, y: 28}
   - {x: 5, y: 27}
   - {x: 19, y: 27}
+  enemiesByLevelList:
+  - dungeonLevel: {fileID: 11400000, guid: 48e5021df193b1d49a451bd5e3c95a58, type: 2}
+    spawnableObjectRatios:
+    - dungeonObject: {fileID: 11400000, guid: fe1337e53d7ad494d9d5825586debbed, type: 2}
+      ratio: 1
+  - dungeonLevel: {fileID: 11400000, guid: 367a749c2a5bff045bb11eb1af850bac, type: 2}
+    spawnableObjectRatios:
+    - dungeonObject: {fileID: 11400000, guid: fe1337e53d7ad494d9d5825586debbed, type: 2}
+      ratio: 1
+    - dungeonObject: {fileID: 11400000, guid: 300d059d0377af24bbfe0f0c30fcc3ce, type: 2}
+      ratio: 1
+  - dungeonLevel: {fileID: 11400000, guid: a8ee2a23985e12b43b0e99e4aecf31d0, type: 2}
+    spawnableObjectRatios:
+    - dungeonObject: {fileID: 11400000, guid: fe1337e53d7ad494d9d5825586debbed, type: 2}
+      ratio: 1
+    - dungeonObject: {fileID: 11400000, guid: 300d059d0377af24bbfe0f0c30fcc3ce, type: 2}
+      ratio: 1
+    - dungeonObject: {fileID: 11400000, guid: ba11a9af878bf6d44b3fd9ff2aeb8e20, type: 2}
+      ratio: 1
+  roomEnemySpawnParameterList:
+  - dungeonLevel: {fileID: 11400000, guid: 48e5021df193b1d49a451bd5e3c95a58, type: 2}
+    minTotalEnemiesToSpawn: 1
+    maxTotalEnemiesToSpawn: 1
+    minConcurrentEnemies: 1
+    maxConcurrentEnemies: 1
+    minSpawnInterval: 2
+    maxSpawnInterval: 4
+  - dungeonLevel: {fileID: 11400000, guid: 367a749c2a5bff045bb11eb1af850bac, type: 2}
+    minTotalEnemiesToSpawn: 2
+    maxTotalEnemiesToSpawn: 2
+    minConcurrentEnemies: 2
+    maxConcurrentEnemies: 2
+    minSpawnInterval: 1
+    maxSpawnInterval: 2
+  - dungeonLevel: {fileID: 11400000, guid: a8ee2a23985e12b43b0e99e4aecf31d0, type: 2}
+    minTotalEnemiesToSpawn: 3
+    maxTotalEnemiesToSpawn: 3
+    minConcurrentEnemies: 3
+    maxConcurrentEnemies: 3
+    minSpawnInterval: 1
+    maxSpawnInterval: 2

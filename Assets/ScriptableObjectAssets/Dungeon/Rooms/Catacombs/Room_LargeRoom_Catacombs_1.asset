@@ -65,6 +65,22 @@ MonoBehaviour:
   - {x: 6, y: -3}
   - {x: 19, y: -4}
   enemiesByLevelList:
+  - dungeonLevel: {fileID: 11400000, guid: 48e5021df193b1d49a451bd5e3c95a58, type: 2}
+    spawnableObjectRatios:
+    - dungeonObject: {fileID: 11400000, guid: c12f9b6dab24b3e439d2dec9214a5bac, type: 2}
+      ratio: 10
+    - dungeonObject: {fileID: 11400000, guid: 4685562012d57c240bb885b163be5ad0, type: 2}
+      ratio: 10
+  - dungeonLevel: {fileID: 11400000, guid: 367a749c2a5bff045bb11eb1af850bac, type: 2}
+    spawnableObjectRatios:
+    - dungeonObject: {fileID: 11400000, guid: c12f9b6dab24b3e439d2dec9214a5bac, type: 2}
+      ratio: 5
+    - dungeonObject: {fileID: 11400000, guid: 7b6194c698c048545b28da350bb8d95f, type: 2}
+      ratio: 5
+    - dungeonObject: {fileID: 11400000, guid: 4685562012d57c240bb885b163be5ad0, type: 2}
+      ratio: 5
+    - dungeonObject: {fileID: 11400000, guid: bfd74c7f79074c74d8a384386bb922ae, type: 2}
+      ratio: 5
   - dungeonLevel: {fileID: 11400000, guid: a8ee2a23985e12b43b0e99e4aecf31d0, type: 2}
     spawnableObjectRatios:
     - dungeonObject: {fileID: 11400000, guid: c12f9b6dab24b3e439d2dec9214a5bac, type: 2}
@@ -81,3 +97,25 @@ MonoBehaviour:
       ratio: 3
     - dungeonObject: {fileID: 11400000, guid: c0e504000fffb98408444ccd4dfec746, type: 2}
       ratio: 6
+  roomEnemySpawnParameterList:
+  - dungeonLevel: {fileID: 11400000, guid: 48e5021df193b1d49a451bd5e3c95a58, type: 2}
+    minTotalEnemiesToSpawn: 7
+    maxTotalEnemiesToSpawn: 10
+    minConcurrentEnemies: 4
+    maxConcurrentEnemies: 6
+    minSpawnInterval: 2
+    maxSpawnInterval: 5
+  - dungeonLevel: {fileID: 11400000, guid: 367a749c2a5bff045bb11eb1af850bac, type: 2}
+    minTotalEnemiesToSpawn: 10
+    maxTotalEnemiesToSpawn: 15
+    minConcurrentEnemies: 5
+    maxConcurrentEnemies: 7
+    minSpawnInterval: 1
+    maxSpawnInterval: 5
+  - dungeonLevel: {fileID: 11400000, guid: a8ee2a23985e12b43b0e99e4aecf31d0, type: 2}
+    minTotalEnemiesToSpawn: 15
+    maxTotalEnemiesToSpawn: 20
+    minConcurrentEnemies: 6
+    maxConcurrentEnemies: 10
+    minSpawnInterval: 1
+    maxSpawnInterval: 4
