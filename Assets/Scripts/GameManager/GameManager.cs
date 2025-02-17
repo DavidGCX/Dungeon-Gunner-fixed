@@ -15,7 +15,15 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     private Room previousRoom;
     private PlayerDetailsSO playerDetails;
     public Player player;
-    public GameState gameState;
+
+    [HideInInspector] public GameState gameState;
+
+    public void SetGameState(GameState gameState) {
+        previousGameState = this.gameState;
+        this.gameState = gameState;
+    }
+
+    public GameState previousGameState;
     public MessageStack messageStack;
 
     [Header("Testing only need to integrate to Game UI later")]
@@ -49,6 +57,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
 
     private void Start() {
         gameState = GameState.gameStarted;
+        previousGameState = GameState.gameStarted;
     }
 
     [ButtonInvoke(nameof(RestartGameDebug))]
@@ -97,6 +106,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     public Player GetPlayer() {
         return player;
     }
+
     public Sprite GetPlayerMinimapIcon() {
         return playerDetails.playerMinimapIcon;
     }

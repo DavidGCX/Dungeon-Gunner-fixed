@@ -42,6 +42,9 @@ public static class Settings {
 
     public static float baseSpeedForPlayerAnimations = 8f;
 
+    // Enemy
+    public static float baseSpeedForEnemyAnimations = 3f;
+
     // Door
     public static int open = Animator.StringToHash("open");
 
@@ -67,6 +70,8 @@ public static class Settings {
     public const int preferredPathAStarMovementPenalty = 1;
     public const float playerMoveDistanceToRebuildPath = 3f;
     public const float enemyPathRebuildCooldown = 2f;
+
+    public const int targetFrameRateToSpreadPathfinding = 60;
 
     #endregion
 
