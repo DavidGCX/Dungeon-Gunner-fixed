@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-// TODO: ALL the event should be simplified to using Unity Input System later on in the project
 [RequireComponent(typeof(Player))]
 [DisallowMultipleComponent]
 public class PlayerControl : MonoBehaviour {
@@ -13,13 +13,21 @@ public class PlayerControl : MonoBehaviour {
     [SerializeField] private Transform weaponShootPosition;
 
     private Player player;
-    private bool leftMouseDownPreviousFrame = false;
     private int currentWeaponIndex = 0;
     private float moveSpeed;
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
     private bool isPlayerRolling = false;
     private float playerRollCooldownTimer = 0f;
+
+    #region global Input Value
+    public bool fireHold = false;
+    public bool fireLastFrame = false;
+    public Vector2 movementInput = Vector2.zero;
+    public Vector3 weaponDirection;
+    public float weaponAngleDegrees, playerAngleDegrees;
+    public AimDirection playerAimDirection;
+    #endregion
 
     private void Awake() {
         player = GetComponent<Player>();
@@ -64,15 +72,14 @@ public class PlayerControl : MonoBehaviour {
 
 
     private void Update() {
-        DebugInput();
         if (isPlayerRolling) return;
-        MovementInput();
+        // MovementInput();
         WeaponInput();
         PlayerRollCoolDownTimer();
     }
 
-    private void DebugInput() {
-        if (Input.GetMouseButton(2)) {
+    public void OnDebugInput(InputAction.CallbackContext value) {
+        if (value.performed) {
             GameManager.Instance.TriggerGhostMode(true);
         }
     }
@@ -83,15 +90,93 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    private void WeaponInput() {
-        Vector3 weaponDirection;
-        float weaponAngleDegrees, playerAngleDegrees;
-        AimDirection playerAimDirection;
+    #region Input
+    public void OnSwitchWeaponKeyboard(InputAction.CallbackContext value) {
+        string keyBoardInput = value.control.ToString().Split("/")[2];
+        int index = int.Parse(keyBoardInput) - 1;
+        SetWeaponByIndex(index == -1 ? 9 : index);
+    }
+    public void OnSetCurrentWeaponToFirstInTheList(InputAction.CallbackContext value) {
+        if (value.performed) {
+            SetCurrentWeaponToFirstInTheList();
+        }
+    }
+    public void OnSwitchWeaponMouseWheel(InputAction.CallbackContext value) {
+        if (!value.performed) return;
 
-        AimWeaponInput(out weaponDirection, out weaponAngleDegrees, out playerAngleDegrees, out playerAimDirection);
-        FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
-        SwitchWeaponInput();
-        ReloadWeaponInput();
+        if (value.ReadValue<Vector2>().y < 0) {
+            PreviousWeapon();
+        }
+
+        if (value.ReadValue<Vector2>().y > 0) {
+            NextWeapon();
+        }
+    }
+    public void OnReloadWeapon(InputAction.CallbackContext value) {
+        if (value.performed) {
+            ReloadWeaponInput();
+        }
+    }
+
+    public void OnMove(InputAction.CallbackContext value) {
+        movementInput = value.ReadValue<Vector2>();
+        if (isPlayerRolling) return;
+        if (movementInput != Vector2.zero) {
+            player.movementByVelocityEvent.CallMovementByVelocityEvent(movementInput, moveSpeed);
+        } else {
+            player.idleEvent.CallIdleEvent();
+        }
+    }
+    public void OnRoll(InputAction.CallbackContext value) {
+        if (value.performed) {
+            if (isPlayerRolling) return;
+            if (playerRollCooldownTimer <= 0) {
+                PlayerRoll(movementInput);
+            }
+        }
+    }
+
+    public void OnAim(InputAction.CallbackContext value) {
+        if (value.performed) {
+            Vector3 mouseWorldPosition = HelperUtilities.GetMouseWorldPosition((Vector3)value.ReadValue<Vector2>());
+            weaponDirection = (mouseWorldPosition - player.activeWeapon.GetShootPosition());
+
+            Vector3 playerDirection = (mouseWorldPosition - transform.position);
+
+            // Prevent strange aim direction problem
+            if (weaponDirection.magnitude < Settings.useAimAngleDistance) {
+                weaponDirection = playerDirection;
+            }
+
+            weaponAngleDegrees = HelperUtilities.GetAngleFromVector(weaponDirection);
+            playerAngleDegrees = HelperUtilities.GetAngleFromVector(playerDirection);
+            playerAimDirection = HelperUtilities.GetAimDirection(playerAngleDegrees);
+            player.aimWeaponEvent.CallAimWeaponEvent(playerAimDirection, playerAngleDegrees, weaponAngleDegrees,
+                weaponDirection);
+        }
+    }
+
+    public void OnFire(InputAction.CallbackContext value) {
+        fireHold = value.action.IsPressed();
+    }
+
+    #endregion
+
+
+    private void WeaponInput() {
+        //AimWeaponInput(out weaponDirection, out weaponAngleDegrees, out playerAngleDegrees, out playerAimDirection);
+        // FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
+        // SwitchWeaponInput();
+        // ReloadWeaponInput();
+        if (!fireHold) {
+            fireLastFrame = false;
+            return;
+        }
+        player.fireWeaponEvent.CallFireWeaponEvent(fireHold, fireLastFrame, playerAimDirection,
+            playerAngleDegrees, weaponAngleDegrees,
+            weaponDirection);
+        fireLastFrame = true;
+
     }
 
     private void SwitchWeaponInput() {
@@ -103,50 +188,50 @@ public class PlayerControl : MonoBehaviour {
             NextWeapon();
         }
 
-        // Need to refactor
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            SetWeaponByIndex(0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2)) {
-            SetWeaponByIndex(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3)) {
-            SetWeaponByIndex(2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4)) {
-            SetWeaponByIndex(3);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5)) {
-            SetWeaponByIndex(4);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha6)) {
-            SetWeaponByIndex(5);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha7)) {
-            SetWeaponByIndex(6);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha8)) {
-            SetWeaponByIndex(7);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha9)) {
-            SetWeaponByIndex(8);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            SetWeaponByIndex(9);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Minus)) {
-            SetCurrentWeaponToFirstInTheList();
-        }
+        // // Need to refactor
+        // if (Input.GetKeyDown(KeyCode.Alpha1)) {
+        //     SetWeaponByIndex(0);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha2)) {
+        //     SetWeaponByIndex(1);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha3)) {
+        //     SetWeaponByIndex(2);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha4)) {
+        //     SetWeaponByIndex(3);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha5)) {
+        //     SetWeaponByIndex(4);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha6)) {
+        //     SetWeaponByIndex(5);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha7)) {
+        //     SetWeaponByIndex(6);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha8)) {
+        //     SetWeaponByIndex(7);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha9)) {
+        //     SetWeaponByIndex(8);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha0)) {
+        //     SetWeaponByIndex(9);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Minus)) {
+        //     SetCurrentWeaponToFirstInTheList();
+        // }
     }
 
     private void SetCurrentWeaponToFirstInTheList() {
@@ -193,21 +278,15 @@ public class PlayerControl : MonoBehaviour {
         if (currentWeapon.weaponRemainingAmmo < currentWeapon.weaponDetails.weaponClipAmmoCapacity && !currentWeapon
                 .weaponDetails.hasInfiniteAmmo) return;
         if (currentWeapon.weaponClipRemainingAmmo == currentWeapon.weaponDetails.weaponClipAmmoCapacity) return;
-
-        if (Input.GetKeyDown(KeyCode.R)) {
-            player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), 0);
-        }
+        player.reloadWeaponEvent.CallReloadWeaponEvent(player.activeWeapon.GetCurrentWeapon(), 0);
     }
 
     private void FireWeaponInput(Vector3 weaponDirection, float weaponAngleDegrees, float playerAngleDegrees,
         AimDirection playerAimDirection) {
-        if (Input.GetMouseButton(0)) {
-            player.fireWeaponEvent.CallFireWeaponEvent(true, leftMouseDownPreviousFrame, playerAimDirection,
+        if (fireHold) {
+            player.fireWeaponEvent.CallFireWeaponEvent(true, fireHold, playerAimDirection,
                 playerAngleDegrees, weaponAngleDegrees,
                 weaponDirection);
-            leftMouseDownPreviousFrame = true;
-        } else {
-            leftMouseDownPreviousFrame = false;
         }
     }
 
@@ -243,6 +322,7 @@ public class PlayerControl : MonoBehaviour {
             StopCoroutine(playerRollCoroutine);
             playerRollCoroutine = null;
             isPlayerRolling = false;
+            player.idleEvent.CallIdleEvent();
         }
     }
 
@@ -288,6 +368,7 @@ public class PlayerControl : MonoBehaviour {
         isPlayerRolling = false;
         playerRollCooldownTimer = movementDetails.rollCooldownTime;
         player.transform.position = targetPosition;
+        player.idleEvent.CallIdleEvent();
     }
 
     #region validation

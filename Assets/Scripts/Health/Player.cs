@@ -52,6 +52,7 @@ public class Player : MonoBehaviour {
     [HideInInspector] public WeaponReloadedEvent weaponReloadedEvent;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public Animator animator;
+    [HideInInspector] public PlayerControl playerControl;
 
     public List<Weapon> weaponList = new List<Weapon>();
 
@@ -83,6 +84,7 @@ public class Player : MonoBehaviour {
         weaponReloadedEvent = GetComponent<WeaponReloadedEvent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        playerControl = GetComponent<PlayerControl>();
     }
 
     public void SetImmortal(bool isImmortal) {

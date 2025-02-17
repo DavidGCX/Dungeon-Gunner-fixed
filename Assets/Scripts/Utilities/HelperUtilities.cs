@@ -22,6 +22,23 @@ public static class HelperUtilities {
         mouseWorldPosition.z = 0;
         return mouseWorldPosition;
     }
+    public static Vector3 GetMouseWorldPosition(Vector3 mouseScreenPosition) {
+        if (!mainCamera) {
+            mainCamera = Camera.main;
+        }
+
+        if (!mainCamera) {
+            Debug.LogError("Main camera not found in the scene");
+            return Vector3.zero;
+        }
+
+        // clamp to screen size only
+        mouseScreenPosition.x = Mathf.Clamp(mouseScreenPosition.x, 0, Screen.width);
+        mouseScreenPosition.y = Mathf.Clamp(mouseScreenPosition.y, 0, Screen.height);
+        Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(mouseScreenPosition);
+        mouseWorldPosition.z = 0;
+        return mouseWorldPosition;
+    }
 
     public static float GetAngleFromVector(Vector3 vector) {
         vector = vector.normalized;
