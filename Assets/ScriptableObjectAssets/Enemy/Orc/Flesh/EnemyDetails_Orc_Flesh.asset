@@ -25,3 +25,18 @@ MonoBehaviour:
   firingDurationMin: 6
   firingDurationMax: 8
   firingLineOfSightRequired: 1
+  EnemyHealthDetailsArray:
+  - dungeonLevel: {fileID: 11400000, guid: 48e5021df193b1d49a451bd5e3c95a58, type: 2}
+    enemyHealthAmount: 12
+  - dungeonLevel: {fileID: 11400000, guid: 367a749c2a5bff045bb11eb1af850bac, type: 2}
+    enemyHealthAmount: 35
+  - dungeonLevel: {fileID: 11400000, guid: a8ee2a23985e12b43b0e99e4aecf31d0, type: 2}
+    enemyHealthAmount: 50
+  - dungeonLevel: {fileID: 11400000, guid: 6b70018ea5615454cab617d377026d45, type: 2}
+    enemyHealthAmount: 60
+  - dungeonLevel: {fileID: 11400000, guid: feb34197f253997489d9078e26fca1f6, type: 2}
+    enemyHealthAmount: 70
+  - dungeonLevel: {fileID: 11400000, guid: 5b66c9fa8a3e5e94b9601bf74b416171, type: 2}
+    enemyHealthAmount: 75
+  isImmuneAfterHit: 0
+  hitImmunityTime: 0.5

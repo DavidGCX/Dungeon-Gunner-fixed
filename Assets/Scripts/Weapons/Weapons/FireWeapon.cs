@@ -44,7 +44,6 @@ public class FireWeapon : MonoBehaviour {
 
     private void WeaponFire(FireWeaponEventArgs fireWeaponEventArgs) {
         WeaponPreCharge(fireWeaponEventArgs);
-
         if (fireWeaponEventArgs.fire) {
             if (IsWeaponReadyToFire()) {
                 FireAmmo(fireWeaponEventArgs.aimAngle, fireWeaponEventArgs.weaponAimAngle,
@@ -124,7 +123,7 @@ public class FireWeapon : MonoBehaviour {
     }
 
     private void WeaponSoundEffect() {
-        GameManager.Instance.messageStack.AddMessage("Weapon fired", MessageType.Normal);
+        // GameManager.Instance.messageStack.AddMessage("Weapon fired", MessageType.Normal);
         if (activeWeapon.GetCurrentWeapon().weaponDetails.weaponFiringSoundEffect) {
             SoundEffectManager.Instance.PlaySoundEffect(activeWeapon.GetCurrentWeapon().weaponDetails
                 .weaponFiringSoundEffect);

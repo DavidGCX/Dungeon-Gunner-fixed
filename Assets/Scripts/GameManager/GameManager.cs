@@ -16,6 +16,8 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     private PlayerDetailsSO playerDetails;
     public Player player;
 
+    public bool ghostMode = false;
+
     [HideInInspector] public GameState gameState;
 
     public void SetGameState(GameState gameState) {
@@ -45,10 +47,16 @@ public class GameManager : SingletonMonobehavior<GameManager> {
 
     private void OnEnable() {
         StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
+        StaticEventHandler.OnRoomEnemiesDefeated += StaticEventHandler_OnRoomEnemiesDefeated;
     }
 
     private void OnDisable() {
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
+        StaticEventHandler.OnRoomEnemiesDefeated -= StaticEventHandler_OnRoomEnemiesDefeated;
+    }
+
+    private void StaticEventHandler_OnRoomEnemiesDefeated(RoomEnemiesDefeatedEventArgs obj) {
+        messageStack.AddMessage("Room Cleared", MessageType.Event);
     }
 
     private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs obj) {
@@ -77,6 +85,12 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     public void TriggerGhostMode(bool isGhostMode) {
         player.SetImmortal(isGhostMode);
         player.GetComponent<PlayerControl>().SetMoveSpeed(50f);
+        ghostMode = isGhostMode;
+        if (!currentRoom.instantiatedRoom.room.roomNodeType.isCorridor && !currentRoom.instantiatedRoom.room
+                .roomNodeType.isEntrance && isGhostMode) {
+            currentRoom.instantiatedRoom.UnlockDoors();
+        }
+
     }
 
     private void Update() {

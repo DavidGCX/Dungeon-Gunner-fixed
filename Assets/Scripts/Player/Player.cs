@@ -32,7 +32,10 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-
+[RequireComponent(typeof(Destroyed))]
+[RequireComponent(typeof(DestroyedEvent))]
+[RequireComponent(typeof(DealContactDamage))]
+[RequireComponent(typeof(ReceiveContactDamage))]
 #endregion
 
 [DisallowMultipleComponent]
@@ -40,6 +43,8 @@ public class Player : MonoBehaviour {
     [HideInInspector] public int InstanceId;
     [HideInInspector] public PlayerDetailsSO playerDetails;
     [HideInInspector] public Health health;
+    [HideInInspector] public HealthEvent healthEvent;
+    [HideInInspector] public DestroyedEvent destroyedEvent;
     [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
@@ -72,6 +77,7 @@ public class Player : MonoBehaviour {
     private void Awake() {
         InstanceId = GetInstanceID();
         health = GetComponent<Health>();
+        healthEvent = GetComponent<HealthEvent>();
         idleEvent = GetComponent<IdleEvent>();
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
@@ -85,6 +91,21 @@ public class Player : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         playerControl = GetComponent<PlayerControl>();
+        destroyedEvent = GetComponent<DestroyedEvent>();
+    }
+
+    private void OnEnable() {
+        healthEvent.OnHealthChanged += HealthEvent_OnHealthChanged;
+    }
+
+    private void OnDisable() {
+        healthEvent.OnHealthChanged -= HealthEvent_OnHealthChanged;
+    }
+
+    private void HealthEvent_OnHealthChanged(HealthEvent arg1, HealthEventArgs arg2) {
+        if (arg2.healthAmount <= 0) {
+            destroyedEvent.CallDestroyedEvent(true);
+        }
     }
 
     public void SetImmortal(bool isImmortal) {
@@ -110,7 +131,8 @@ public class Player : MonoBehaviour {
             weaponReloadTimer = 0f,
             weaponClipRemainingAmmo = weaponDetails.weaponClipAmmoCapacity,
             weaponRemainingAmmo = weaponDetails.weaponAmmoCapacity,
-            isWeaponReloading = false
+            isWeaponReloading = false,
+            owner = this.gameObject
         };
 
         weaponList.Add(weapon);

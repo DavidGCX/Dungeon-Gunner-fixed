@@ -11,6 +11,7 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner> {
     private int currentEnemyCount;
     private int enemiesSpawnedSoFar;
     private int enemyMaxConcurrentSpawnNumber;
+    private int enemiesKilledSoFar;
     private Room currentRoom;
     private RoomEnemySpawnParameters roomEnemySpawnParameters;
 
@@ -39,16 +40,16 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner> {
 
         roomEnemySpawnParameters =
             currentRoom.GetRoomEnemySpawnParameters(GameManager.Instance.GetCurrentDungeonLevel());
-
+        enemiesKilledSoFar = 0;
         if (enemiesToSpawn == 0) {
             currentRoom.isClearedOfEnemies = true;
             return;
         }
 
         enemyMaxConcurrentSpawnNumber = GetConcurrentEnemies();
-
-        currentRoom.instantiatedRoom.LockDoors();
-
+        if (!GameManager.Instance.ghostMode) {
+            currentRoom.instantiatedRoom.LockDoors();
+        }
         SpawnEnemies();
     }
 
@@ -85,8 +86,31 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner> {
         currentEnemyCount++;
         enemiesSpawnedSoFar++;
         DungeonLevelSO currentLevel = GameManager.Instance.GetCurrentDungeonLevel();
-        GameObject enemy = Instantiate(enemyDetail.enemyPrefab, spawnPosition, Quaternion.identity, transform);
-        enemy.GetComponent<Enemy>().EnemyInitialization(enemyDetail, enemiesSpawnedSoFar, currentLevel);
+        Enemy enemy = Instantiate(enemyDetail.enemyPrefab, spawnPosition, Quaternion.identity, transform)
+            .GetComponent<Enemy>();
+        enemy.EnemyInitialization(enemyDetail, enemiesSpawnedSoFar, currentLevel);
+        enemy.destroyedEvent.OnDestroyed += EnemyDestroyedEvent_OnDestroyed;
+    }
+
+    private void EnemyDestroyedEvent_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs args) {
+        destroyedEvent.OnDestroyed -= EnemyDestroyedEvent_OnDestroyed;
+        currentEnemyCount--;
+        enemiesKilledSoFar++;
+        Enemy enemyCleared = destroyedEvent.transform.GetComponent<Enemy>();
+        string name = enemyCleared.enemyDetails.enemyName;
+        int enemyLeft = enemiesToSpawn - enemiesKilledSoFar;
+        GameManager.Instance.messageStack.AddMessage(name + " killed, " + enemyLeft + " left", MessageType.Normal);
+        if (currentEnemyCount <= 0 && enemiesSpawnedSoFar == enemiesToSpawn) {
+            currentRoom.isClearedOfEnemies = true;
+            if (GameManager.Instance.gameState == GameState.engagingEnemies) {
+                GameManager.Instance.SetGameState(GameState.playingLevel);
+            } else if (GameManager.Instance.gameState == GameState.engagingBoss) {
+                GameManager.Instance.SetGameState(GameState.bossStage);
+            }
+            currentRoom.instantiatedRoom.UnlockDoors(Settings.doorUnlockDelay);
+
+            StaticEventHandler.CallRoomEnemiesDefeatedEvent(currentRoom);
+        }
     }
 
     private float GetEnemySpawnInterval() {

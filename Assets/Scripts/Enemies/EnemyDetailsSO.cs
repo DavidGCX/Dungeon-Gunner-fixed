@@ -29,6 +29,13 @@ public class EnemyDetailsSO : ScriptableObject {
 
     public bool firingLineOfSightRequired;
 
+    [Space(10)] [Header("Enemy Health Settings")]
+    public EnemyHealthDetails[] EnemyHealthDetailsArray;
+
+    public bool isImmuneAfterHit = false;
+
+    public float hitImmunityTime = 0.5f;
+
     #region Validation
 
 #if UNITY_EDITOR
@@ -43,6 +50,10 @@ public class EnemyDetailsSO : ScriptableObject {
             (firingIntervalMax), firingIntervalMax, false);
         HelperUtilities.ValidateCheckPositiveRange(this, nameof(firingDurationMin), firingDurationMin, nameof
             (firingDurationMax), firingDurationMax, false);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(EnemyHealthDetailsArray), EnemyHealthDetailsArray);
+        if (isImmuneAfterHit) {
+            HelperUtilities.ValidateCheckPositiveValue(this, nameof(hitImmunityTime), hitImmunityTime, false);
+        }
     }
 #endif
 

@@ -14,6 +14,7 @@ public static class Settings {
 
     public const float fadeInTime = 0.5f;
     public const int MaxChildCorridors = 3;
+    public const float doorUnlockDelay = 1f;
 
     #endregion
 
@@ -75,9 +76,23 @@ public static class Settings {
 
     #endregion
 
+    #region Enemy Parameters
+
+    public const int defaultEnemyHealth = 20;
+    
+
+    #endregion
+
     #region UI Parameters
 
     public const float uiAmmoIconSpacing = 4f;
+    public const float uiHeartSpacing = 16f;
+
+    #endregion
+
+    #region Contact Damage Parameters
+
+    public const float contactDamageCooldown = 0.5f;
 
     #endregion
 }

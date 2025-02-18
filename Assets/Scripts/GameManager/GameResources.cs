@@ -40,6 +40,7 @@ public class GameResources : MonoBehaviour {
     public TileBase preferredEnemyPathTile;
 
     [Space(10)] [Header("UI")] public GameObject ammoIconPrefab;
+    public GameObject healthIconPrefab;
 
     #region validation
 

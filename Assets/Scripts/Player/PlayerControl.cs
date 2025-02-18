@@ -17,7 +17,7 @@ public class PlayerControl : MonoBehaviour {
     private float moveSpeed;
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
-    private bool isPlayerRolling = false;
+    [HideInInspector] public bool isPlayerRolling = false;
     private float playerRollCooldownTimer = 0f;
 
     #region global Input Value
@@ -314,6 +314,7 @@ public class PlayerControl : MonoBehaviour {
             StopCoroutine(playerRollCoroutine);
             playerRollCoroutine = null;
             isPlayerRolling = false;
+            player.health.SetImmuneToDamage(false);
             player.idleEvent.CallIdleEvent();
         }
     }
@@ -345,6 +346,7 @@ public class PlayerControl : MonoBehaviour {
     private IEnumerator PlayerRollCoroutine(Vector3 movementDirection) {
         float minDistance = 0.3f;
         isPlayerRolling = true;
+        player.health.SetImmuneToDamage(true);
         Vector3 targetPosition = player.transform.position + (Vector3)movementDirection * movementDetails.rollDistance;
         while (Vector3.Distance(player.transform.position, targetPosition) > minDistance) {
             player.movementToPositionEvent.CallMovementToPositionEvent(targetPosition, player.transform.position,

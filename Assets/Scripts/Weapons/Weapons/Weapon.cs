@@ -9,7 +9,7 @@ public class Weapon {
     public int weaponClipRemainingAmmo;
     public int weaponRemainingAmmo;
     public bool isWeaponReloading;
-
+    public GameObject owner;
     public override string ToString() {
         return weaponDetails.weaponName;
     }

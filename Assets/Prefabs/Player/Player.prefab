@@ -339,6 +339,11 @@ GameObject:
   - component: {fileID: 3705971088542875093}
   - component: {fileID: 3567683094962192346}
   - component: {fileID: 1099868438442369568}
+  - component: {fileID: 2943971572369015327}
+  - component: {fileID: 1569656385737488596}
+  - component: {fileID: 2989553695545311496}
+  - component: {fileID: 4063884066121561482}
+  - component: {fileID: 7579937728455935792}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -375,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73990ceb75245c443823a7f59b59ae0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDamageable: 1
 --- !u!210 &3764096591872938475
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -615,6 +621,8 @@ MonoBehaviour:
   InstanceId: 0
   playerDetails: {fileID: 0}
   health: {fileID: 0}
+  healthEvent: {fileID: 0}
+  destroyedEvent: {fileID: 0}
   idleEvent: {fileID: 0}
   aimWeaponEvent: {fileID: 0}
   movementByVelocityEvent: {fileID: 0}
@@ -627,6 +635,7 @@ MonoBehaviour:
   weaponReloadedEvent: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
+  playerControl: {fileID: 0}
 --- !u!114 &531678295900686786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,7 +662,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementDetails: {fileID: 11400000, guid: e5b4ba5b5a3d56e4dadfd968abd8d911, type: 2}
   weaponShootPosition: {fileID: 8743913240350863816}
+  isPlayerRolling: 0
   fireHold: 0
+  fireLastFrame: 0
+  rollingInput: 0
   movementInput: {x: 0, y: 0}
   weaponDirection: {x: 0, y: 0, z: 0}
   weaponAngleDegrees: 0
@@ -1013,22 +1025,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5368478437804977261}
         m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
-        m_MethodName: OnFireHold
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 268b3eba-1438-43ec-b857-da2c42a7a45f
-    m_ActionName: 'InGame/ShootHold[/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5368478437804977261}
-        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
         m_MethodName: OnAim
         m_Mode: 0
         m_Arguments:
@@ -1046,6 +1042,71 @@ MonoBehaviour:
   m_DefaultActionMap: InGame
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2943971572369015327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b396c174ec24ff14396664444f43883f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1569656385737488596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac59a58cac72794593b8a33bae833c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2989553695545311496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0995a6333cebd4da8dcdb232934050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4063884066121561482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee6bca0c57da6694f8c88ab6cbbb965f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamageAmount: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 131072
+--- !u!114 &7579937728455935792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181064113732702418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7baf71b8ed216e4abbb75ff8ff0e0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contactDamageAmount: 0
 --- !u!1 &7434930515277950481
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,6 +18,17 @@ public class CinemachineTarget : MonoBehaviour {
         SetCineMachineTargetGroup();
     }
 
+    private void OnEnable() {
+        GameManager.Instance.GetPlayer().destroyedEvent.OnDestroyed += DestroyedEvent_OnDestroyed;
+    }
+    private void OnDisable() {
+        GameManager.Instance.GetPlayer().destroyedEvent.OnDestroyed -= DestroyedEvent_OnDestroyed;
+    }
+
+    private void DestroyedEvent_OnDestroyed(DestroyedEvent arg1, DestroyedEventArgs arg2) {
+        targetGroup.Targets = new List<CinemachineTargetGroup.Target>() { };
+    }
+
     private void SetCineMachineTargetGroup() {
         CinemachineTargetGroup.Target cinemachineTarget = new CinemachineTargetGroup.Target {
             Weight = 1f,

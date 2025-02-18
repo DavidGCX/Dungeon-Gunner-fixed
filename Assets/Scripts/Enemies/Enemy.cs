@@ -28,7 +28,11 @@ using System.Runtime.InteropServices;
 [RequireComponent(typeof(ReloadWeaponEvent))]
 [RequireComponent(typeof(ReloadWeapon))]
 [RequireComponent(typeof(WeaponReloadedEvent))]
-
+[RequireComponent(typeof(HealthEvent))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Destroyed))]
+[RequireComponent(typeof(DestroyedEvent))]
+[RequireComponent(typeof(DealContactDamage))]
 [DisallowMultipleComponent]
 public class Enemy : MonoBehaviour {
     [HideInInspector] public EnemyDetailsSO enemyDetails;
@@ -44,7 +48,9 @@ public class Enemy : MonoBehaviour {
     private PolygonCollider2D polygonCollider;
     [HideInInspector] public SpriteRenderer[] spriteRendererArray;
     [HideInInspector] public Animator animator;
-
+    [HideInInspector] public Health health;
+    [HideInInspector] public HealthEvent healthEvent;
+    [HideInInspector] public DestroyedEvent destroyedEvent;
     private void Awake() {
         enemyMovementAI = GetComponent<EnemyMovementAI>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
@@ -58,6 +64,23 @@ public class Enemy : MonoBehaviour {
         fireWeaponEvent = GetComponent<FireWeaponEvent>();
         fireWeapon = GetComponent<FireWeapon>();
         setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
+        health = GetComponent<Health>();
+        healthEvent = GetComponent<HealthEvent>();
+        destroyedEvent = GetComponent<DestroyedEvent>();
+    }
+
+    private void OnEnable() {
+        healthEvent.OnHealthChanged += HealthEvent_OnHealthChanged;
+    }
+
+    private void OnDisable() {
+        healthEvent.OnHealthChanged -= HealthEvent_OnHealthChanged;
+    }
+
+    private void HealthEvent_OnHealthChanged(HealthEvent healthEvent, HealthEventArgs healthEventArgs) {
+        if (healthEventArgs.healthAmount <= 0) {
+            destroyedEvent.CallDestroyedEvent(false);
+        }
     }
 
     public void EnemyInitialization(EnemyDetailsSO enemyDetails, int enemySpawnNumber, DungeonLevelSO dungeonLevel) {
@@ -65,8 +88,18 @@ public class Enemy : MonoBehaviour {
         SetEnemyUpdateFrameNumber(enemySpawnNumber);
         SetEnemyStartingWeapon();
         SetEnemyAnimationSpeed();
-
+        SetEnemyStartingHealth(dungeonLevel);
         StartCoroutine(MaterializeEnemy());
+    }
+
+    private void SetEnemyStartingHealth(DungeonLevelSO dungeonLevel) {
+        foreach (EnemyHealthDetails enemyHealthDetail in enemyDetails.EnemyHealthDetailsArray) {
+            if (enemyHealthDetail.dungeonLevel == dungeonLevel) {
+                health.SetStartingHealth(enemyHealthDetail.enemyHealthAmount);
+                break;
+            }
+        }
+        health.SetStartingHealth(Settings.defaultEnemyHealth);
     }
 
     private void SetEnemyStartingWeapon() {
@@ -76,7 +109,7 @@ public class Enemy : MonoBehaviour {
                     enemyDetails.enemyWeapon.weaponClipAmmoCapacity,
                 weaponRemainingAmmo = enemyDetails.enemyWeapon
                     .weaponAmmoCapacity,
-                isWeaponReloading = false
+                isWeaponReloading = false, owner = this.gameObject
             };
             setActiveWeaponEvent.CallSetActiveWeaponEvent(weapon);
         }
