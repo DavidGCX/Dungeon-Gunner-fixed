@@ -23,6 +23,7 @@ public class PlayerControl : MonoBehaviour {
     #region global Input Value
     public bool fireHold = false;
     public bool fireLastFrame = false;
+    public bool rollingInput = false;
     public Vector2 movementInput = Vector2.zero;
     public Vector3 weaponDirection;
     public float weaponAngleDegrees, playerAngleDegrees;
@@ -73,7 +74,7 @@ public class PlayerControl : MonoBehaviour {
 
     private void Update() {
         if (isPlayerRolling) return;
-        // MovementInput();
+        MovementInput();
         WeaponInput();
         PlayerRollCoolDownTimer();
     }
@@ -120,20 +121,9 @@ public class PlayerControl : MonoBehaviour {
 
     public void OnMove(InputAction.CallbackContext value) {
         movementInput = value.ReadValue<Vector2>();
-        if (isPlayerRolling) return;
-        if (movementInput != Vector2.zero) {
-            player.movementByVelocityEvent.CallMovementByVelocityEvent(movementInput, moveSpeed);
-        } else {
-            player.idleEvent.CallIdleEvent();
-        }
     }
     public void OnRoll(InputAction.CallbackContext value) {
-        if (value.performed) {
-            if (isPlayerRolling) return;
-            if (playerRollCooldownTimer <= 0) {
-                PlayerRoll(movementInput);
-            }
-        }
+        rollingInput = value.performed;
     }
 
     public void OnAim(InputAction.CallbackContext value) {
@@ -151,8 +141,6 @@ public class PlayerControl : MonoBehaviour {
             weaponAngleDegrees = HelperUtilities.GetAngleFromVector(weaponDirection);
             playerAngleDegrees = HelperUtilities.GetAngleFromVector(playerDirection);
             playerAimDirection = HelperUtilities.GetAimDirection(playerAngleDegrees);
-            player.aimWeaponEvent.CallAimWeaponEvent(playerAimDirection, playerAngleDegrees, weaponAngleDegrees,
-                weaponDirection);
         }
     }
 
@@ -168,6 +156,10 @@ public class PlayerControl : MonoBehaviour {
         // FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
         // SwitchWeaponInput();
         // ReloadWeaponInput();
+
+        // To make sure the Aim args are set in Animator
+        player.aimWeaponEvent.CallAimWeaponEvent(playerAimDirection, playerAngleDegrees, weaponAngleDegrees,
+            weaponDirection);
         if (!fireHold) {
             fireLastFrame = false;
             return;
@@ -335,16 +327,11 @@ public class PlayerControl : MonoBehaviour {
     // }
 
     private void MovementInput() {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        bool rightMouseDown = Input.GetMouseButtonDown(1);
-
-        Vector2 movementDirection = new Vector2(horizontal, vertical).normalized;
-        if (movementDirection != Vector2.zero) {
-            if (rightMouseDown && playerRollCooldownTimer <= 0) {
-                PlayerRoll((Vector3)movementDirection);
+        if (movementInput != Vector2.zero) {
+            if (rollingInput && playerRollCooldownTimer <= 0) {
+                PlayerRoll((Vector3)movementInput);
             } else {
-                player.movementByVelocityEvent.CallMovementByVelocityEvent(movementDirection, moveSpeed);
+                player.movementByVelocityEvent.CallMovementByVelocityEvent(movementInput, moveSpeed);
             }
         } else {
             player.idleEvent.CallIdleEvent();
@@ -356,7 +343,7 @@ public class PlayerControl : MonoBehaviour {
     }
 
     private IEnumerator PlayerRollCoroutine(Vector3 movementDirection) {
-        float minDistance = 0.2f;
+        float minDistance = 0.3f;
         isPlayerRolling = true;
         Vector3 targetPosition = player.transform.position + (Vector3)movementDirection * movementDetails.rollDistance;
         while (Vector3.Distance(player.transform.position, targetPosition) > minDistance) {
@@ -364,11 +351,9 @@ public class PlayerControl : MonoBehaviour {
                 movementDetails.rollSpeed, movementDirection, isPlayerRolling);
             yield return waitForFixedUpdate;
         }
-
         isPlayerRolling = false;
         playerRollCooldownTimer = movementDetails.rollCooldownTime;
         player.transform.position = targetPosition;
-        player.idleEvent.CallIdleEvent();
     }
 
     #region validation

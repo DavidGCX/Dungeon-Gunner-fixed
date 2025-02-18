@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "EnemyDetails_", menuName = "Scriptable Objects/Enemy/EnemyDetails")]
 public class EnemyDetailsSO : ScriptableObject {
@@ -15,8 +16,19 @@ public class EnemyDetailsSO : ScriptableObject {
     [Space(10)] [Header("Enemy Materialize Settings")]
     public float enemyMaterializeTime = 0.5f;
     public Shader enemyMaterializeShader;
-    [ColorUsage(true, true)]
-    public Color enemyMaterilizeColor;
+    [FormerlySerializedAs("enemyMaterilizeColor")] [ColorUsage(true, true)]
+    public Color enemyMaterializeColor;
+
+    [Space(10)] [Header("Enemy Weapon Settings")]
+    public WeaponDetailsSO enemyWeapon;
+
+    public float firingIntervalMin = 0.1f;
+    public float firingIntervalMax = 1f;
+    public float firingDurationMin = 1f;
+    public float firingDurationMax = 2f;
+
+    public bool firingLineOfSightRequired;
+
     #region Validation
 
 #if UNITY_EDITOR
@@ -27,7 +39,10 @@ public class EnemyDetailsSO : ScriptableObject {
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(enemyMaterializeTime), enemyMaterializeTime, false);
         HelperUtilities.ValidateCheckNullValue(this, nameof(enemyStandardMaterial), enemyStandardMaterial);
         HelperUtilities.ValidateCheckNullValue(this, nameof(enemyMaterializeShader), enemyMaterializeShader);
-
+        HelperUtilities.ValidateCheckPositiveRange(this, nameof(firingIntervalMin), firingIntervalMin, nameof
+            (firingIntervalMax), firingIntervalMax, false);
+        HelperUtilities.ValidateCheckPositiveRange(this, nameof(firingDurationMin), firingDurationMin, nameof
+            (firingDurationMax), firingDurationMax, false);
     }
 #endif
 
