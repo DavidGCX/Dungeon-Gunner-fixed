@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Shader Test Colours_0: 4883659329312844587
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
