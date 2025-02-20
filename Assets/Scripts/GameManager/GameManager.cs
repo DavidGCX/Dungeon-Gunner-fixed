@@ -28,6 +28,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
 
     public GameState previousGameState;
     private long gameScore;
+    [HideInInspector] public int scoreMultiplier;
     public MessageStack messageStack;
 
     [Header("Testing only need to integrate to Game UI later")]
@@ -51,16 +52,23 @@ public class GameManager : SingletonMonobehavior<GameManager> {
         StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
         StaticEventHandler.OnRoomEnemiesDefeated += StaticEventHandler_OnRoomEnemiesDefeated;
         StaticEventHandler.OnPointsScored += StaticEventHandler_OnPointsScore;
+        StaticEventHandler.OnMultipliersChanged += StaticEventHandlerOnMultipliersChanged;
     }
 
     private void OnDisable() {
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
         StaticEventHandler.OnRoomEnemiesDefeated -= StaticEventHandler_OnRoomEnemiesDefeated;
         StaticEventHandler.OnPointsScored -= StaticEventHandler_OnPointsScore;
+        StaticEventHandler.OnMultipliersChanged -= StaticEventHandlerOnMultipliersChanged;
+    }
+
+    private void StaticEventHandlerOnMultipliersChanged(MutipliersChangedArgs args) {
+        scoreMultiplier = Mathf.Clamp(scoreMultiplier + args.mutipliers, 1, 30);
+        StaticEventHandler.CallScoreChangedEvent(gameScore);
     }
 
     private void StaticEventHandler_OnPointsScore(PointsScoredArgs args) {
-        gameScore += args.points;
+        gameScore += args.points * scoreMultiplier;
         StaticEventHandler.CallScoreChangedEvent(gameScore);
     }
 
@@ -76,6 +84,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
         gameState = GameState.gameStarted;
         previousGameState = GameState.gameStarted;
         gameScore = 0;
+        scoreMultiplier = 1;
     }
 
     [ButtonInvoke(nameof(RestartGameDebug))]
@@ -100,7 +109,6 @@ public class GameManager : SingletonMonobehavior<GameManager> {
                 .roomNodeType.isEntrance && isGhostMode) {
             currentRoom.instantiatedRoom.UnlockDoors();
         }
-
     }
 
     private void Update() {

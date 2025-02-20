@@ -18,6 +18,7 @@ public class Ammo : MonoBehaviour, IFireable {
     private bool overrideAmmoMovement;
     private Weapon damageSource;
     private bool isColliding = false;
+
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -34,6 +35,7 @@ public class Ammo : MonoBehaviour, IFireable {
         transform.position += distanceVector;
         ammoRange -= distanceVector.magnitude;
         if (ammoRange <= 0) {
+            StaticEventHandler.CallMultipliersChangedEvent(-1);
             DisableAmmo();
         }
     }
@@ -43,20 +45,33 @@ public class Ammo : MonoBehaviour, IFireable {
         if (isColliding) {
             return;
         }
+
         DealDamage(other);
         ShowAmmoHitEffect();
         DisableAmmo();
     }
 
     private void DealDamage(Collider2D other) {
-
+        bool enemyHit = false;
         Health health = other.GetComponent<Health>();
         if (health) {
             if (isColliding) {
                 return;
             }
+
             isColliding = true;
             health.TakeDamage(ammoDetails.ammoDamage, damageSource);
+            if (other.GetComponent<Enemy>()) {
+                enemyHit = true;
+            }
+        }
+
+        if (ammoDetails.isPlayerAmmo) {
+            if (enemyHit) {
+                StaticEventHandler.CallMultipliersChangedEvent(1);
+            } else {
+                StaticEventHandler.CallMultipliersChangedEvent(-1);
+            }
         }
     }
 
@@ -83,6 +98,7 @@ public class Ammo : MonoBehaviour, IFireable {
         Vector3 weaponAimDirectionVector, Weapon damageSource, bool overrideAmmoMovement = false) {
         this.damageSource = damageSource;
         isColliding = false;
+
         #region ammo
 
         this.ammoDetails = ammoDetails;

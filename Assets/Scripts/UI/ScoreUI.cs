@@ -1,13 +1,10 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ScoreUI : MonoBehaviour {
-    [SerializeField] private TextMeshProUGUI scroeText;
-
-    private void Awake() {
-        scroeText = GetComponent<TextMeshProUGUI>();
-    }
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     private void OnEnable() {
         StaticEventHandler.OnScoreChanged += StaticEventHandler_OnScoreChanged;
@@ -18,6 +15,7 @@ public class ScoreUI : MonoBehaviour {
     }
 
     private void StaticEventHandler_OnScoreChanged(ScoreChangedArgs args) {
-        scroeText.text = "SCORE: " + args.score.ToString("###,###0");
+        scoreText.text = "SCORE: " + args.score.ToString("###,###0") + "\nMULTIPLIER: x" +
+                         GameManager.Instance.scoreMultiplier;
     }
 }

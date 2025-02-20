@@ -10,6 +10,7 @@ public static class StaticEventHandler {
     public static void CallRoomChangedEvent(Room room) {
         OnRoomChanged?.Invoke(new RoomChangedEventArgs { room = room });
     }
+
     public static event Action<RoomEnemiesDefeatedEventArgs> OnRoomEnemiesDefeated;
 
     public static void CallRoomEnemiesDefeatedEvent(Room room) {
@@ -27,6 +28,13 @@ public static class StaticEventHandler {
     public static void CallScoreChangedEvent(long score) {
         OnScoreChanged?.Invoke(new ScoreChangedArgs { score = score });
     }
+
+    public static event Action<MutipliersChangedArgs> OnMultipliersChanged;
+
+    // Pass in the change of value not the value of the mutipliers
+    public static void CallMultipliersChangedEvent(int multipliers) {
+        OnMultipliersChanged?.Invoke(new MutipliersChangedArgs { mutipliers = multipliers });
+    }
 }
 
 public class RoomChangedEventArgs : EventArgs {
@@ -43,4 +51,8 @@ public class PointsScoredArgs : EventArgs {
 
 public class ScoreChangedArgs : EventArgs {
     public long score;
+}
+
+public class MutipliersChangedArgs : EventArgs {
+    public int mutipliers;
 }
