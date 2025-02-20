@@ -96,6 +96,7 @@ public class EnemySpawner : SingletonMonobehavior<EnemySpawner> {
         destroyedEvent.OnDestroyed -= EnemyDestroyedEvent_OnDestroyed;
         currentEnemyCount--;
         enemiesKilledSoFar++;
+        StaticEventHandler.CallPointsScoredEvent(args.points);
         Enemy enemyCleared = destroyedEvent.transform.GetComponent<Enemy>();
         string name = enemyCleared.enemyDetails.enemyName;
         int enemyLeft = enemiesToSpawn - enemiesKilledSoFar;

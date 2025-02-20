@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour {
     [HideInInspector] public Health health;
     [HideInInspector] public HealthEvent healthEvent;
     [HideInInspector] public DestroyedEvent destroyedEvent;
+
     private void Awake() {
         enemyMovementAI = GetComponent<EnemyMovementAI>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
@@ -79,7 +80,7 @@ public class Enemy : MonoBehaviour {
 
     private void HealthEvent_OnHealthChanged(HealthEvent healthEvent, HealthEventArgs healthEventArgs) {
         if (healthEventArgs.healthAmount <= 0) {
-            destroyedEvent.CallDestroyedEvent(false);
+            destroyedEvent.CallDestroyedEvent(false, health.GetStartingHealth());
         }
     }
 
@@ -99,6 +100,7 @@ public class Enemy : MonoBehaviour {
                 break;
             }
         }
+
         health.SetStartingHealth(Settings.defaultEnemyHealth);
     }
 
@@ -113,7 +115,6 @@ public class Enemy : MonoBehaviour {
             };
             setActiveWeaponEvent.CallSetActiveWeaponEvent(weapon);
         }
-
     }
 
     private void SetEnemyUpdateFrameNumber(int enemySpawnNumber) {

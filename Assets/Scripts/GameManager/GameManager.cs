@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Serialization;
@@ -26,6 +27,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     }
 
     public GameState previousGameState;
+    private long gameScore;
     public MessageStack messageStack;
 
     [Header("Testing only need to integrate to Game UI later")]
@@ -48,11 +50,18 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     private void OnEnable() {
         StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
         StaticEventHandler.OnRoomEnemiesDefeated += StaticEventHandler_OnRoomEnemiesDefeated;
+        StaticEventHandler.OnPointsScored += StaticEventHandler_OnPointsScore;
     }
 
     private void OnDisable() {
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
         StaticEventHandler.OnRoomEnemiesDefeated -= StaticEventHandler_OnRoomEnemiesDefeated;
+        StaticEventHandler.OnPointsScored -= StaticEventHandler_OnPointsScore;
+    }
+
+    private void StaticEventHandler_OnPointsScore(PointsScoredArgs args) {
+        gameScore += args.points;
+        StaticEventHandler.CallScoreChangedEvent(gameScore);
     }
 
     private void StaticEventHandler_OnRoomEnemiesDefeated(RoomEnemiesDefeatedEventArgs obj) {
@@ -66,6 +75,7 @@ public class GameManager : SingletonMonobehavior<GameManager> {
     private void Start() {
         gameState = GameState.gameStarted;
         previousGameState = GameState.gameStarted;
+        gameScore = 0;
     }
 
     [ButtonInvoke(nameof(RestartGameDebug))]
