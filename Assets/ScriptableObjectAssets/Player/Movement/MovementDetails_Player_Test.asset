@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93de2000be56c7c44a7d86a1560262b1, type: 3}
-  m_Name: CurrentPlayer
+  m_Script: {fileID: 11500000, guid: c484ffdaf72cdba459b3d92daf56fa5d, type: 3}
+  m_Name: MovementDetails_Player_Test
   m_EditorClassIdentifier: 
-  playerDetails: {fileID: 11400000, guid: c9c14f3afbc9859459944e9488719ab4, type: 2}
-  playerName: 
+  minMoveSpeed: 15
+  maxMoveSpeed: 15
+  rollSpeed: 10
+  rollDistance: 8
+  rollCooldownTime: 0.2

@@ -671,6 +671,7 @@ MonoBehaviour:
   weaponAngleDegrees: 0
   playerAngleDegrees: 0
   playerAimDirection: 0
+  enterPressed: 0
 --- !u!114 &2955590173140905734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1037,6 +1038,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 81488903-0ada-40a4-bab6-992d79832362
     m_ActionName: 'InGame/Aim[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5368478437804977261}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: OnEnterInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 13824328-09f9-4c3f-b284-eb3c756d50df
+    m_ActionName: 'InGame/Enter[/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: InGame

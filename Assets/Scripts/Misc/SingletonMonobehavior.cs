@@ -12,7 +12,9 @@ public abstract class SingletonMonobehavior<T> : MonoBehaviour
     protected virtual void Awake() {
         if (instance == null) {
             instance = this as T;
-            DontDestroyOnLoad(gameObject);
+            // This will cause some reference errors when reloading scenes
+            // So disable For now until a better solution is found for it
+            //DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }

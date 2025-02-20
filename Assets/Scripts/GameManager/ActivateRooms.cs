@@ -12,6 +12,10 @@ public class ActivateRoom : MonoBehaviour
     }
 
     private void EnableRooms() {
+        if (minimapCamera == null) {
+            minimapCamera = GameObject.FindGameObjectsWithTag("minimapCamera")[0].GetComponent<Camera>();
+        }
+
         foreach (var keyPair in DungeonBuilder.Instance.dungeonBuilderRoomDictionary) {
             Room room = keyPair.Value;
             HelperUtilities.CameraWorldPositionBounds(minimapCamera, out Vector2 lowerounds, out Vector2 upperBounds);

@@ -8,6 +8,11 @@ public class Minimap : MonoBehaviour {
     private Transform playerTransform;
 
     private void Start() {
+        if (GameManager.Instance.GetPlayer() == null) {
+            Debug.LogError("Player not found in GameManager");
+            return;
+        }
+
         playerTransform = GameManager.Instance.GetPlayer().transform;
 
         CinemachineCamera cinemachineCamera = GetComponentInChildren<CinemachineCamera>();

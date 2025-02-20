@@ -14,6 +14,8 @@ public static class AStar {
         Node startNode = gridNodes.GetGridNode(startGridPosition.x, startGridPosition.y);
         Node targetNode = gridNodes.GetGridNode(endGridPosition.x, endGridPosition.y);
         if (startNode == null || targetNode == null) {
+            Debug.LogWarning("AStar: Invalid start or target node at room " + room.id + " from " + startGridPosition +
+                             " to " + endGridPosition);
             return null;
         }
 
@@ -24,9 +26,8 @@ public static class AStar {
             Debug.LogWarning("AStar: No path found at room " + room.id + " from " + startGridPosition + " to " +
                              endGridPosition);
             return null;
-        } else {
-            return CreatePathStack(endPathNode, room);
         }
+        return CreatePathStack(endPathNode, room);
     }
 
     private static Node FindShortestPath(GridNodes gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet,

@@ -79,7 +79,7 @@ public class EnemyMovementAI : MonoBehaviour {
         Vector3Int enemyGridPosition = grid.WorldToCell(transform.position);
         Vector3Int playerGridPosition = GetNearestNonObstaclePlayerPosition(currentRoom);
         movementSteps = AStar.BuildPath(currentRoom, enemyGridPosition, playerGridPosition);
-        if (movementDetails != null) {
+        if (movementDetails != null && movementSteps != null && movementSteps.Count > 0) {
             movementSteps.Pop(); // Remove the first step as it is the current position of the enemy
         } else {
             enemy.idleEvent.CallIdleEvent();

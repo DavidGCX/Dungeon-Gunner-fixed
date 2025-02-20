@@ -30,10 +30,15 @@ public class CinemachineTarget : MonoBehaviour {
     }
 
     private void SetCineMachineTargetGroup() {
+        if (GameManager.Instance.GetPlayer() == null) {
+            Debug.LogError("Player not found in GameManager");
+            return;
+        }
+
         CinemachineTargetGroup.Target cinemachineTarget = new CinemachineTargetGroup.Target {
             Weight = 1f,
             Radius = 3f,
-            Object = GameManager.Instance.player.transform
+            Object = GameManager.Instance.GetPlayer().transform
         };
 
         CinemachineTargetGroup.Target cinemachineCursorTarget = new CinemachineTargetGroup.Target {

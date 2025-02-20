@@ -28,6 +28,7 @@ public class PlayerControl : MonoBehaviour {
     public Vector3 weaponDirection;
     public float weaponAngleDegrees, playerAngleDegrees;
     public AimDirection playerAimDirection;
+    public bool enterPressed = false;
     #endregion
 
     private void Awake() {
@@ -124,6 +125,10 @@ public class PlayerControl : MonoBehaviour {
     }
     public void OnRoll(InputAction.CallbackContext value) {
         rollingInput = value.performed;
+    }
+
+    public void OnEnterInput(InputAction.CallbackContext value) {
+        enterPressed = value.performed;
     }
 
     public void OnAim(InputAction.CallbackContext value) {

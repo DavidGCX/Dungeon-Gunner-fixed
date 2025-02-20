@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93123c0c149f149e595af0a608f23485, type: 3}
   m_Name: DungeonLevelRestrictionLevel1
   m_EditorClassIdentifier: 
-  minSmallRoomCount: 3
-  maxSmallRoomCount: 5
+  minSmallRoomCount: 1
+  maxSmallRoomCount: 1
   minMediumRoomCount: 1
-  maxMediumRoomCount: 3
-  minLargeRoomCount: 1
-  maxLargeRoomCount: 2
+  maxMediumRoomCount: 1
+  minLargeRoomCount: 0
+  maxLargeRoomCount: 0
   minBossRoomCount: 1
   maxBossRoomCount: 1
-  minChestRoomCount: 1
-  maxChestRoomCount: 1
+  minChestRoomCount: 0
+  maxChestRoomCount: 0
