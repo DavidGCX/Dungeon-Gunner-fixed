@@ -22,6 +22,13 @@ public static class HelperUtilities {
         mouseWorldPosition.z = 0;
         return mouseWorldPosition;
     }
+
+    public static void CameraWorldPositionBounds(Camera camera, out Vector2 lowerBounds, out Vector2 upperBounds) {
+        Vector3 worldPositionViewportBottomLeft = camera.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 worldPositionViewportTopRight = camera.ViewportToWorldPoint(new Vector3(1, 1, 0));
+        lowerBounds = new Vector2(worldPositionViewportBottomLeft.x, worldPositionViewportBottomLeft.y);
+        upperBounds = new Vector2(worldPositionViewportTopRight.x, worldPositionViewportTopRight.y);
+    }
     public static Vector3 GetMouseWorldPosition(Vector3 mouseScreenPosition) {
         if (!mainCamera) {
             mainCamera = Camera.main;
